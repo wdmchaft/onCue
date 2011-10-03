@@ -1,0 +1,293 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		23EC95D8143936BA00823C49 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23EC95D7143936BA00823C49 /* Cocoa.framework */; };
+		23EC95E2143936BA00823C49 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23EC95E0143936BA00823C49 /* InfoPlist.strings */; };
+		23EC95E4143936BA00823C49 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EC95E3143936BA00823C49 /* main.m */; };
+		23EC95E8143936BA00823C49 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 23EC95E6143936BA00823C49 /* Credits.rtf */; };
+		23EC95EB143936BA00823C49 /* onCueAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EC95EA143936BA00823C49 /* onCueAppDelegate.m */; };
+		23EC95EE143936BB00823C49 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23EC95EC143936BB00823C49 /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		23EC95D3143936BA00823C49 /* onCue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = onCue.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		23EC95D7143936BA00823C49 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		23EC95DA143936BA00823C49 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		23EC95DB143936BA00823C49 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		23EC95DC143936BA00823C49 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		23EC95DF143936BA00823C49 /* onCue-Info.plist */ = {isa = PBXFileReference; path = "onCue-Info.plist"; sourceTree = "<group>"; };
+		23EC95E1143936BA00823C49 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		23EC95E3143936BA00823C49 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		23EC95E5143936BA00823C49 /* onCue-Prefix.pch */ = {isa = PBXFileReference; path = "onCue-Prefix.pch"; sourceTree = "<group>"; };
+		23EC95E7143936BA00823C49 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		23EC95E9143936BA00823C49 /* onCueAppDelegate.h */ = {isa = PBXFileReference; path = onCueAppDelegate.h; sourceTree = "<group>"; };
+		23EC95EA143936BA00823C49 /* onCueAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = onCueAppDelegate.m; sourceTree = "<group>"; };
+		23EC95ED143936BB00823C49 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		23EC95D0143936BA00823C49 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23EC95D8143936BA00823C49 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		23EC95C8143936BA00823C49 = {
+			isa = PBXGroup;
+			children = (
+				23EC95DD143936BA00823C49 /* onCue */,
+				23EC95D6143936BA00823C49 /* Frameworks */,
+				23EC95D4143936BA00823C49 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		23EC95D4143936BA00823C49 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				23EC95D3143936BA00823C49 /* onCue.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		23EC95D6143936BA00823C49 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				23EC95D7143936BA00823C49 /* Cocoa.framework */,
+				23EC95D9143936BA00823C49 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		23EC95D9143936BA00823C49 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				23EC95DA143936BA00823C49 /* AppKit.framework */,
+				23EC95DB143936BA00823C49 /* CoreData.framework */,
+				23EC95DC143936BA00823C49 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		23EC95DD143936BA00823C49 /* onCue */ = {
+			isa = PBXGroup;
+			children = (
+				23EC95E9143936BA00823C49 /* onCueAppDelegate.h */,
+				23EC95EA143936BA00823C49 /* onCueAppDelegate.m */,
+				23EC95EC143936BB00823C49 /* MainMenu.xib */,
+				23EC95DE143936BA00823C49 /* Supporting Files */,
+			);
+			path = onCue;
+			sourceTree = "<group>";
+		};
+		23EC95DE143936BA00823C49 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				23EC95DF143936BA00823C49 /* onCue-Info.plist */,
+				23EC95E0143936BA00823C49 /* InfoPlist.strings */,
+				23EC95E3143936BA00823C49 /* main.m */,
+				23EC95E5143936BA00823C49 /* onCue-Prefix.pch */,
+				23EC95E6143936BA00823C49 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		23EC95D2143936BA00823C49 /* onCue */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 23EC95F1143936BB00823C49 /* Build configuration list for PBXNativeTarget "onCue" */;
+			buildPhases = (
+				23EC95CF143936BA00823C49 /* Sources */,
+				23EC95D0143936BA00823C49 /* Frameworks */,
+				23EC95D1143936BA00823C49 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = onCue;
+			productName = onCue;
+			productReference = 23EC95D3143936BA00823C49 /* onCue.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		23EC95CA143936BA00823C49 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = EggDevil;
+			};
+			buildConfigurationList = 23EC95CD143936BA00823C49 /* Build configuration list for PBXProject "onCue" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 23EC95C8143936BA00823C49;
+			productRefGroup = 23EC95D4143936BA00823C49 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				23EC95D2143936BA00823C49 /* onCue */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		23EC95D1143936BA00823C49 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23EC95E2143936BA00823C49 /* InfoPlist.strings in Resources */,
+				23EC95E8143936BA00823C49 /* Credits.rtf in Resources */,
+				23EC95EE143936BB00823C49 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		23EC95CF143936BA00823C49 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23EC95E4143936BA00823C49 /* main.m in Sources */,
+				23EC95EB143936BA00823C49 /* onCueAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		23EC95E0143936BA00823C49 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				23EC95E1143936BA00823C49 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		23EC95E6143936BA00823C49 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				23EC95E7143936BA00823C49 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		23EC95EC143936BB00823C49 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				23EC95ED143936BB00823C49 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		23EC95EF143936BB00823C49 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		23EC95F0143936BB00823C49 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		23EC95F2143936BB00823C49 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "onCue/onCue-Prefix.pch";
+				INFOPLIST_FILE = "onCue/onCue-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		23EC95F3143936BB00823C49 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "onCue/onCue-Prefix.pch";
+				INFOPLIST_FILE = "onCue/onCue-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		23EC95CD143936BA00823C49 /* Build configuration list for PBXProject "onCue" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23EC95EF143936BB00823C49 /* Debug */,
+				23EC95F0143936BB00823C49 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		23EC95F1143936BB00823C49 /* Build configuration list for PBXNativeTarget "onCue" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23EC95F2143936BB00823C49 /* Debug */,
+				23EC95F3143936BB00823C49 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 23EC95CA143936BA00823C49 /* Project object */;
+}
