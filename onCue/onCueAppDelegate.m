@@ -33,9 +33,9 @@
 //- (BOOL)tabView:(NSTabView *)tabView shouldSelectTabViewItem:(NSTabViewItem *)tabViewItem{
 //	return YES;
 //}
-//- (void)tabView:(NSTabView *)tabView willSelectTabViewItem:(NSTabViewItem *)tabViewItem{
-////	 [self switchViewController:tabView item:tabViewItem];
-//}
+- (void)tabView:(NSTabView *)tabView willSelectTabViewItem:(NSTabViewItem *)tabViewItem{
+	 [self switchViewController:tabView item:tabViewItem];
+}
 //- (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem{
 //
 //}
@@ -58,8 +58,8 @@
 			oldController = continuousVC;
 			break;
 	}
-//	[oldController viewWillDisappear];
-//	[newController viewWillAppear];
+	[oldController viewWillDisappear];
+	[newController viewWillAppear];
 
 }
 

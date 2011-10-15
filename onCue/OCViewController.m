@@ -28,22 +28,13 @@ mainWindow;
 	
 	[super dealloc];
 }
-//-(void)viewWillAppear{
-////	[self setupSession];
+-(void)viewWillAppear{
 //	[session startRunning];
-//}
-//-(void)viewWillDisappear{
-//	[drawer close];
-////	self.drawer = nil;
-//	
+}
+-(void)viewWillDisappear{
+	[drawer close];
 //	[session stopRunning];
-//}
-//-(void)setupSession{
-//	[session addOutput:movieFileOutput error:nil];
-//	[session addOutput:audioPreviewOutput error:nil];
-//	[captureView setCaptureSession:session];
-//	[session addOutput:previewOutput error:nil];
-//}
+}
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -138,15 +129,15 @@ mainWindow;
  didOutputVideoFrame:(CVImageBufferRef)videoFrame 
 	withSampleBuffer:(QTSampleBuffer *)sampleBuffer 
 	  fromConnection:(QTCaptureConnection *)connection{
-	CVImageBufferRef imageBufferToRelease;
+//	CVImageBufferRef imageBufferToRelease;
 	
-    CVBufferRetain(videoFrame);
-	
-    @synchronized (self) {
-        imageBufferToRelease = mCurrentImageBuffer;
-        mCurrentImageBuffer = videoFrame;
-    }
-    CVBufferRelease(imageBufferToRelease);
+//    CVBufferRetain(videoFrame);
+//	
+//    @synchronized (self) {
+//        imageBufferToRelease = mCurrentImageBuffer;
+//        mCurrentImageBuffer = videoFrame;
+//    }
+//    CVBufferRelease(imageBufferToRelease);
 }
 -(CIImage*)view:(QTCaptureView *)view willDisplayImage:(CIImage *)image{
 	return image;

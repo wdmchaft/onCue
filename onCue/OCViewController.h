@@ -117,7 +117,6 @@
 - (void)activateAllOptions;
 - (void)deactivateAllOptions;
 
-//-(void)setupSession;
-//-(void)viewWillAppear;
-//-(void)viewWillDisappear;
+-(void)viewWillAppear;
+-(void)viewWillDisappear;
 @end
