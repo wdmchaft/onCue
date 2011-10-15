@@ -7,11 +7,21 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "MainWindowController.h"
+#import "OCViewController.h"
+#import "OCContinuousVC.h"
+#import "OCMotionVC.h"
 
-@interface onCueAppDelegate : NSObject <NSApplicationDelegate> {
-	NSWindow *window;
+@interface onCueAppDelegate : NSObject <NSApplicationDelegate, NSTabViewDelegate> {
+	IBOutlet NSWindow *window;
+	IBOutlet NSTabView *myTabView;
+	IBOutlet MainWindowController *windowController;
+	
+	 /* Preload the various views */
+	OCContinuousVC *continuousVC;
+	OCMotionVC *motionVC;
 }
 
-@property (assign) IBOutlet NSWindow *window;
+- (void)switchViewController:(NSTabView*)tabView item:(NSTabViewItem*)nextItem;
 
 @end

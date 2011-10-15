@@ -7,28 +7,68 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23943225143E3A6D0093217F /* CamController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23943224143E3A6D0093217F /* CamController.m */; };
+		2394322A143E7ECC0093217F /* OCMotionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 23943228143E7ECC0093217F /* OCMotionVC.m */; };
+		2394322B143E7ECC0093217F /* OCMotion.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23943229143E7ECC0093217F /* OCMotion.xib */; };
+		23943230143FE6E90093217F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2394322E143FE6DC0093217F /* Accelerate.framework */; };
+		23943232143FE7410093217F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23943231143FE7400093217F /* QuartzCore.framework */; };
 		23EC95D8143936BA00823C49 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23EC95D7143936BA00823C49 /* Cocoa.framework */; };
 		23EC95E2143936BA00823C49 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23EC95E0143936BA00823C49 /* InfoPlist.strings */; };
 		23EC95E4143936BA00823C49 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EC95E3143936BA00823C49 /* main.m */; };
 		23EC95E8143936BA00823C49 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 23EC95E6143936BA00823C49 /* Credits.rtf */; };
 		23EC95EB143936BA00823C49 /* onCueAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EC95EA143936BA00823C49 /* onCueAppDelegate.m */; };
 		23EC95EE143936BB00823C49 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23EC95EC143936BB00823C49 /* MainMenu.xib */; };
+		23EC95F6143937BD00823C49 /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EC95F5143937BD00823C49 /* MainWindowController.m */; };
+		23EC95FA1439389400823C49 /* OCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EC95F81439389400823C49 /* OCViewController.m */; };
+		23EC95FB1439389400823C49 /* OCContinuous.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23EC95F91439389400823C49 /* OCContinuous.xib */; };
+		23EC95FE14393A3800823C49 /* OCButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EC95FD14393A3800823C49 /* OCButton.m */; };
+		23EC960514393BE800823C49 /* ready.png in Resources */ = {isa = PBXBuildFile; fileRef = 23EC960014393BE800823C49 /* ready.png */; };
+		23EC960614393BE800823C49 /* recording.png in Resources */ = {isa = PBXBuildFile; fileRef = 23EC960114393BE800823C49 /* recording.png */; };
+		23EC960714393BE800823C49 /* waiting.png in Resources */ = {isa = PBXBuildFile; fileRef = 23EC960214393BE800823C49 /* waiting.png */; };
+		23EC960814393BE800823C49 /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = 23EC960314393BE800823C49 /* button.png */; };
+		23EC960914393BE800823C49 /* menu_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 23EC960414393BE800823C49 /* menu_icon.png */; };
+		23EC960C14393CB500823C49 /* OCContinuousVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EC960B14393CB500823C49 /* OCContinuousVC.m */; };
+		23EC960F143A557000823C49 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23EC960D143A556200823C49 /* QTKit.framework */; };
+		23EC9612143BFE4F00823C49 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23EC9610143BFE4100823C49 /* CoreVideo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		23943223143E3A6D0093217F /* CamController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CamController.h; path = ../CamController.h; sourceTree = "<group>"; };
+		23943224143E3A6D0093217F /* CamController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CamController.m; path = ../CamController.m; sourceTree = "<group>"; };
+		23943227143E7ECC0093217F /* OCMotionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMotionVC.h; sourceTree = "<group>"; };
+		23943228143E7ECC0093217F /* OCMotionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCMotionVC.m; sourceTree = "<group>"; };
+		23943229143E7ECC0093217F /* OCMotion.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OCMotion.xib; sourceTree = "<group>"; };
+		2394322E143FE6DC0093217F /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		23943231143FE7400093217F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		23EC95D3143936BA00823C49 /* onCue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = onCue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23EC95D7143936BA00823C49 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		23EC95DA143936BA00823C49 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		23EC95DB143936BA00823C49 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		23EC95DC143936BA00823C49 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		23EC95DF143936BA00823C49 /* onCue-Info.plist */ = {isa = PBXFileReference; path = "onCue-Info.plist"; sourceTree = "<group>"; };
+		23EC95DF143936BA00823C49 /* onCue-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "onCue-Info.plist"; sourceTree = "<group>"; };
 		23EC95E1143936BA00823C49 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		23EC95E3143936BA00823C49 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		23EC95E5143936BA00823C49 /* onCue-Prefix.pch */ = {isa = PBXFileReference; path = "onCue-Prefix.pch"; sourceTree = "<group>"; };
+		23EC95E5143936BA00823C49 /* onCue-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "onCue-Prefix.pch"; sourceTree = "<group>"; };
 		23EC95E7143936BA00823C49 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		23EC95E9143936BA00823C49 /* onCueAppDelegate.h */ = {isa = PBXFileReference; path = onCueAppDelegate.h; sourceTree = "<group>"; };
+		23EC95E9143936BA00823C49 /* onCueAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = onCueAppDelegate.h; sourceTree = "<group>"; };
 		23EC95EA143936BA00823C49 /* onCueAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = onCueAppDelegate.m; sourceTree = "<group>"; };
 		23EC95ED143936BB00823C49 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		23EC95F4143937BD00823C49 /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
+		23EC95F5143937BD00823C49 /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
+		23EC95F71439389400823C49 /* OCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCViewController.h; sourceTree = "<group>"; };
+		23EC95F81439389400823C49 /* OCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCViewController.m; sourceTree = "<group>"; };
+		23EC95F91439389400823C49 /* OCContinuous.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OCContinuous.xib; sourceTree = "<group>"; };
+		23EC95FC14393A3800823C49 /* OCButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCButton.h; sourceTree = "<group>"; };
+		23EC95FD14393A3800823C49 /* OCButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCButton.m; sourceTree = "<group>"; };
+		23EC960014393BE800823C49 /* ready.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ready.png; sourceTree = "<group>"; };
+		23EC960114393BE800823C49 /* recording.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recording.png; sourceTree = "<group>"; };
+		23EC960214393BE800823C49 /* waiting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waiting.png; sourceTree = "<group>"; };
+		23EC960314393BE800823C49 /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
+		23EC960414393BE800823C49 /* menu_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_icon.png; sourceTree = "<group>"; };
+		23EC960A14393CB500823C49 /* OCContinuousVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OCContinuousVC.h; path = ../OCContinuousVC.h; sourceTree = "<group>"; };
+		23EC960B14393CB500823C49 /* OCContinuousVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OCContinuousVC.m; path = ../OCContinuousVC.m; sourceTree = "<group>"; };
+		23EC960D143A556200823C49 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
+		23EC9610143BFE4100823C49 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,7 +76,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23943230143FE6E90093217F /* Accelerate.framework in Frameworks */,
+				23943232143FE7410093217F /* QuartzCore.framework in Frameworks */,
 				23EC95D8143936BA00823C49 /* Cocoa.framework in Frameworks */,
+				23EC960F143A557000823C49 /* QTKit.framework in Frameworks */,
+				23EC9612143BFE4F00823C49 /* CoreVideo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +107,10 @@
 		23EC95D6143936BA00823C49 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				23943231143FE7400093217F /* QuartzCore.framework */,
+				2394322E143FE6DC0093217F /* Accelerate.framework */,
+				23EC9610143BFE4100823C49 /* CoreVideo.framework */,
+				23EC960D143A556200823C49 /* QTKit.framework */,
 				23EC95D7143936BA00823C49 /* Cocoa.framework */,
 				23EC95D9143936BA00823C49 /* Other Frameworks */,
 			);
@@ -82,10 +130,29 @@
 		23EC95DD143936BA00823C49 /* onCue */ = {
 			isa = PBXGroup;
 			children = (
+				23943223143E3A6D0093217F /* CamController.h */,
+				23943224143E3A6D0093217F /* CamController.m */,
 				23EC95E9143936BA00823C49 /* onCueAppDelegate.h */,
 				23EC95EA143936BA00823C49 /* onCueAppDelegate.m */,
+				23EC95F4143937BD00823C49 /* MainWindowController.h */,
+				23EC95F5143937BD00823C49 /* MainWindowController.m */,
 				23EC95EC143936BB00823C49 /* MainMenu.xib */,
 				23EC95DE143936BA00823C49 /* Supporting Files */,
+				23EC95F71439389400823C49 /* OCViewController.h */,
+				23EC95F81439389400823C49 /* OCViewController.m */,
+				23EC95F91439389400823C49 /* OCContinuous.xib */,
+				23EC960A14393CB500823C49 /* OCContinuousVC.h */,
+				23EC960B14393CB500823C49 /* OCContinuousVC.m */,
+				23943229143E7ECC0093217F /* OCMotion.xib */,
+				23943227143E7ECC0093217F /* OCMotionVC.h */,
+				23943228143E7ECC0093217F /* OCMotionVC.m */,
+				23EC95FC14393A3800823C49 /* OCButton.h */,
+				23EC95FD14393A3800823C49 /* OCButton.m */,
+				23EC960014393BE800823C49 /* ready.png */,
+				23EC960114393BE800823C49 /* recording.png */,
+				23EC960214393BE800823C49 /* waiting.png */,
+				23EC960314393BE800823C49 /* button.png */,
+				23EC960414393BE800823C49 /* menu_icon.png */,
 			);
 			path = onCue;
 			sourceTree = "<group>";
@@ -155,6 +222,13 @@
 				23EC95E2143936BA00823C49 /* InfoPlist.strings in Resources */,
 				23EC95E8143936BA00823C49 /* Credits.rtf in Resources */,
 				23EC95EE143936BB00823C49 /* MainMenu.xib in Resources */,
+				23EC95FB1439389400823C49 /* OCContinuous.xib in Resources */,
+				23EC960514393BE800823C49 /* ready.png in Resources */,
+				23EC960614393BE800823C49 /* recording.png in Resources */,
+				23EC960714393BE800823C49 /* waiting.png in Resources */,
+				23EC960814393BE800823C49 /* button.png in Resources */,
+				23EC960914393BE800823C49 /* menu_icon.png in Resources */,
+				2394322B143E7ECC0093217F /* OCMotion.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +241,12 @@
 			files = (
 				23EC95E4143936BA00823C49 /* main.m in Sources */,
 				23EC95EB143936BA00823C49 /* onCueAppDelegate.m in Sources */,
+				23EC95F6143937BD00823C49 /* MainWindowController.m in Sources */,
+				23EC95FA1439389400823C49 /* OCViewController.m in Sources */,
+				23EC95FE14393A3800823C49 /* OCButton.m in Sources */,
+				23EC960C14393CB500823C49 /* OCContinuousVC.m in Sources */,
+				23943225143E3A6D0093217F /* CamController.m in Sources */,
+				2394322A143E7ECC0093217F /* OCMotionVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,7 +284,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -230,7 +310,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -248,9 +328,11 @@
 		23EC95F2143936BB00823C49 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "onCue/onCue-Prefix.pch";
 				INFOPLIST_FILE = "onCue/onCue-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -259,9 +341,11 @@
 		23EC95F3143936BB00823C49 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "onCue/onCue-Prefix.pch";
 				INFOPLIST_FILE = "onCue/onCue-Info.plist";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -286,6 +370,7 @@
 				23EC95F3143936BB00823C49 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
