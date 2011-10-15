@@ -31,14 +31,15 @@
 	NSNumberFormatter *number_formatter = [[NSNumberFormatter alloc] init];
 	[number_formatter setNumberStyle:NSNumberFormatterNoStyle];
 	[waitTimeInput setFormatter:number_formatter];
-	delayMinutes = @"15";
-	
-	
+	delayMinutes = @"0";
 	recordLengthSeconds = @"10";
 	
 	[number_formatter release];
     
     return self;
+}
+-(void)awakeFromNib{
+	[super awakeFromNib];
 }
 -(void)dealloc{
 	[mafilter release];
@@ -49,6 +50,7 @@
 }
 - (IBAction)toggleWaiting:(id)sender{
 	[waitTimeInput setEnabled:[waitButton state]];
+	delayMinutes = @"0";
 }
 - (CIImage *)view:(QTCaptureView *)view willDisplayImage:(CIImage *)image
 {
@@ -128,13 +130,38 @@
 - (CIVector *)vectorFromExtent:(CGRect)extent{
 	return [CIVector vectorWithX:extent.origin.x Y:extent.origin.y Z:extent.size.width	W:extent.size.height];
 }
-- (BOOL)scheduleStopDate:(NSDate *)stopDate{
-	return NO;
+-(BOOL)scheduleStopDate:(NSDate *)stopDate{
+	if ([self.stopTimer isValid])
+		[self.stopTimer invalidate];
+	if (stopDate == nil)
+		return NO;
+	
+	NSTimeInterval interval = [stopDate timeIntervalSinceDate:[NSDate date]];
+	
+	self.stopTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(stop) userInfo:nil repeats:NO];
+	return YES;
 }
-- (BOOL)scheduleStartDate:(NSDate *)startDate{
-	return NO;
+-(BOOL)scheduleStartDate:(NSDate *)startDate{
+	if (startDate == nil)
+		return NO;
+	[camController setWaiting];
+	NSTimeInterval interval = [startDate timeIntervalSinceDate:[NSDate date]];
+	self.startTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(startRecording) userInfo:nil repeats:NO];
+	return YES;
 }
-
+-(IBAction)validateWaitTime:(id)sender{
+	NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+	if (![f numberFromString:self.delayMinutes] || !([self.delayMinutes intValue] > 0))
+		self.delayMinutes = @"0";
+	[f release];
+}
+-(IBAction)validateRecordTime:(id)sender{
+	NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+	int val = [self.recordLengthSeconds intValue];
+	if (![f numberFromString: self.recordLengthSeconds] || !(val > 0))
+		self.recordLengthSeconds = @"10";
+	[f release];
+}
 - (void)activateAllOptions{
 	[self.waitTimeInput setEnabled:YES];
 	[self.waitButton setEnabled:YES];
@@ -147,14 +174,16 @@
 	[self.recordTimeInput setEnabled:NO];
 	[self.sensSlider setEnabled:NO];
 }
-
-- (void)start{
-	
+- (NSDate *)startDate{
+	if (waitButton.state)
+		return [[NSDate date] dateByAddingTimeInterval:60*[[waitTimeInput stringValue] intValue]];
+	return nil;
 }
-- (void)stop{
-	
+- (NSDate *)endDate{
+	if ( [recordLengthSeconds intValue] > 0)
+		return [[NSDate date] dateByAddingTimeInterval:[recordLengthSeconds intValue]];
+	return nil;
 }
-
 - (IBAction)recordButtonPressed:(id)sender{
 	NSButton *button = (NSButton*)sender;
 	if (button.state)
@@ -162,9 +191,37 @@
 	else
 		[self stop];
 }
-- (IBAction)setSaveLocation:(id)sender{
-}
 
 - (void)reset{
+}
+- (IBAction)setSaveLocation:(id)sender{
+    NSSavePanel *savePanel = [NSSavePanel savePanel];
+    void (^handler)(NSInteger result);
+    
+    handler = ^(NSInteger result) {
+        if (result != 0){
+			self.saveToURL = [savePanel URL];
+			NSString *path = [[savePanel URL] path];
+				// Clear off text field
+			[self.saveToTextField setHidden:YES];
+				// Make the button wider to fit path
+			NSRect frame = [self.saveButton frame];
+			
+			frame.size.width = [path length] * 7;
+			
+			[[self.saveButton animator] setFrame:frame];
+			
+				// Set the path as button label
+			[self.saveButton setTitle:path];
+		}
+        else{
+			
+            [self reset];
+        }
+        
+    };
+    [savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"mov"]];
+    [savePanel setCanSelectHiddenExtension:NO];
+    [savePanel beginSheetModalForWindow:[self.view window] completionHandler:handler];
 }
 @end

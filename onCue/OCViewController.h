@@ -97,6 +97,7 @@
 - (BOOL)selectedVideoDeviceProvidesAudio;
 - (BOOL)hasRecordingDevice;
 /* Recording */
+-(IBAction)recordButtonPressed:(id)sender;
 - (void)start;
 - (void)stop;
 -(void)reset;

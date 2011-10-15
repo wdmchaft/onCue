@@ -52,8 +52,10 @@
 @property (assign) NSInteger motionLevelValue;
 
 - (IBAction)toggleWaiting:(id)sender;
+-(IBAction)validateWaitTime:(id)sender;
+-(IBAction)validateRecordTime:(id)sender;
 - (BOOL)motionDetected:(NSBitmapImageRep *)input;
 - (CIVector *)vectorFromExtent:(CGRect)extent;
 
-
+- (IBAction)setSaveLocation:(id)sender;
 @end

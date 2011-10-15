@@ -17,8 +17,8 @@
 
 @property (assign) BOOL isRecording;
 @property (assign) BOOL isWaiting;
-@property (assign) NSImage *buttonLight;
-@property (assign) NSString *actionText;
+@property (retain) NSImage *buttonLight;
+@property (retain) NSString *actionText;
 
 -(void)setReady;
 -(void)setWaiting;
