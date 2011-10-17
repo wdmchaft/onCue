@@ -29,11 +29,10 @@ mainWindow;
 	[super dealloc];
 }
 -(void)viewWillAppear{
-//	[session startRunning];
+
 }
 -(void)viewWillDisappear{
 	[drawer close];
-//	[session stopRunning];
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -122,9 +121,6 @@ mainWindow;
 	[drawer setContentView:[self preview]];
 	[drawer setParentWindow:self.mainWindow];
 }
--(IBAction)changeModes:(id)sender{
-	[[self.view superview] replaceSubview:self.view with:[self.windowController.views objectAtIndex:1]]; 
-}
 -(void)captureOutput:(QTCaptureOutput *)captureOutput 
  didOutputVideoFrame:(CVImageBufferRef)videoFrame 
 	withSampleBuffer:(QTSampleBuffer *)sampleBuffer 
@@ -173,21 +169,41 @@ mainWindow;
 	}
 }
 #pragma mark Recording
--(IBAction)recordButtonPressed:(id)sender{
-	NSButton *button = (NSButton*)sender;
-	if (button.state)
-		[self start];
-	else
+- (IBAction)recordButtonPressed:(id)sender{
+	if ([self isRecording] || [self isWaiting])
 		[self stop];
+	else
+		[self start];
+}
+-(BOOL)scheduleStopDate:(NSDate *)stopDate{
+	if ([self.stopTimer isValid])
+		[self.stopTimer invalidate];
+	if (stopDate == nil)
+		return NO;
+	
+	NSTimeInterval interval = [stopDate timeIntervalSinceDate:[NSDate date]];
+	
+	self.stopTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(stop) userInfo:nil repeats:NO];
+	return YES;
+}
+-(BOOL)scheduleStartDate:(NSDate *)startDate{
+	if (startDate == nil)
+		return NO;
+	[camController setWaiting];
+	NSTimeInterval interval = [startDate timeIntervalSinceDate:[NSDate date]];
+	self.startTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(startRecording) userInfo:nil repeats:NO];
+	return YES;
 }
 -(void)start{
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"runFromMenubar"]){
 		[self launchMenuBar];
 		[self closeMainWindow];
 	}
-	[self scheduleStopDate:[self endDate]];
+	
 	if (![self scheduleStartDate:[self startDate]])
 		[self startRecording];
+	[self scheduleStopDate:[self endDate]];
+	
 	[self deactivateAllOptions];
 }
 -(void)stop{
@@ -212,12 +228,6 @@ mainWindow;
 }
 - (NSDate *)endDate{
 	return nil;
-}
--(BOOL)scheduleStopDate:(NSDate *)date{
-	return NO;
-}
--(BOOL)scheduleStartDate:(NSDate *)date{
-	return NO;
 }
 - (void)activateAllOptions{}
 - (void)deactivateAllOptions{}

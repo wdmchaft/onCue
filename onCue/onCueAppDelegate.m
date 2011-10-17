@@ -52,10 +52,14 @@
 		case 0:
 			newController = continuousVC;
 			oldController = motionVC;
+			[quietSave setEnabled:YES];
+			quietSave.state = [[NSUserDefaults standardUserDefaults] boolForKey:@"quietSave"];
 			break;
 		case 1:
 			newController = motionVC;
 			oldController = continuousVC;
+			quietSave.state = YES;
+			[quietSave setEnabled:NO];
 			break;
 	}
 	[oldController viewWillDisappear];

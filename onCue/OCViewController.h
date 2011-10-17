@@ -59,7 +59,6 @@
 	NSArray						*audioDevices;
 					/* Recording */
     NSURL                       *saveToURL;
-	CVImageBufferRef            mCurrentImageBuffer;
 }
 
 	/* Window */

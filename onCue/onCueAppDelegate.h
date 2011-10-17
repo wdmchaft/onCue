@@ -16,6 +16,7 @@
 	IBOutlet NSWindow *window;
 	IBOutlet NSTabView *myTabView;
 	IBOutlet MainWindowController *windowController;
+	IBOutlet NSButton *quietSave;
 	
 	 /* Preload the various views */
 	OCContinuousVC *continuousVC;

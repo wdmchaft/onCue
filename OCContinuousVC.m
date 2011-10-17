@@ -37,6 +37,12 @@ typedef enum {
 	
     return self;
 }
+-(void)viewWillAppear{
+	[super viewWillAppear];
+}
+-(void)viewWillDisappear{
+	[super viewWillDisappear];
+}
 -(void)awakeFromNib{
 	[super awakeFromNib];
 	[self disableDateInput:startTimeInput];
@@ -51,25 +57,7 @@ typedef enum {
 																		  dictionaryWithObject: [NSColor colorWithCalibratedRed:0.326 green:0.000 blue:0.000 alpha:1.000] 
 																		  forKey: NSForegroundColorAttributeName]] autorelease]];
 }
--(BOOL)scheduleStopDate:(NSDate *)stopDate{
-	if ([self.stopTimer isValid])
-		[self.stopTimer invalidate];
-	if (stopDate == nil)
-		return NO;
-	
-	NSTimeInterval interval = [stopDate timeIntervalSinceDate:[NSDate date]];
-	
-	self.stopTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(stop) userInfo:nil repeats:NO];
-	return YES;
-}
--(BOOL)scheduleStartDate:(NSDate *)startDate{
-	if (startDate == nil)
-		return NO;
-	[camController setWaiting];
-	NSTimeInterval interval = [startDate timeIntervalSinceDate:[NSDate date]];
-	self.startTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(startRecording) userInfo:nil repeats:NO];
-	return YES;
-}
+
 
 - (void)disableDateInput:(NSTextField *)input{
     [input setEnabled:NO];

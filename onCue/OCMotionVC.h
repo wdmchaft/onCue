@@ -37,7 +37,6 @@
 	NSTimer						*motionLevelTimer;
 	IBOutlet NSLevelIndicator	*motionLevelMeter;
 	NSInteger					motionLevelValue;
-
 }
 
 @property (retain) IBOutlet NSButton *waitButton;
@@ -47,8 +46,8 @@
 @property (retain) IBOutlet NSSlider *sensSlider;
 @property (retain) CIImage *oldImage;
 @property (retain) CIImage *currentCIImage;
-@property (assign) NSString *delayMinutes;
-@property (assign) NSString *recordLengthSeconds;
+@property (retain) NSString *delayMinutes;
+@property (retain) NSString *recordLengthSeconds;
 @property (assign) NSInteger motionLevelValue;
 
 - (IBAction)toggleWaiting:(id)sender;
@@ -58,4 +57,9 @@
 - (CIVector *)vectorFromExtent:(CGRect)extent;
 
 - (IBAction)setSaveLocation:(id)sender;
+
+-(void)setMotionDetector;
+-(void)deactivateMotionDetector;
+
+-(void)shouldStartRecording:(id)sender;
 @end

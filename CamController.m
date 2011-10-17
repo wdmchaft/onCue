@@ -10,13 +10,17 @@
 
 @implementation CamController
 
-@synthesize isRecording,isWaiting,buttonLight,actionText; 
+@synthesize isRecording,isWaiting,buttonLight,actionText,readyText,waitingText,recordingText; 
 
 - (id)init
 {
     self = [super init];
     if (!self)
 		return nil;
+	
+	self.readyText = @"Start Recording";
+	self.waitingText = @"Cancel";
+	self.recordingText = @"Stop Recording";
 	
 	[self setReady];
 	
@@ -26,20 +30,20 @@
 -(void)setReady{
 	self.isRecording = NO;
 	self.isWaiting = NO;
-	self.buttonLight = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ready" ofType:@"png"]];
-    self.actionText = @"Start Recording";
+	self.buttonLight = [[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ready" ofType:@"png"]] autorelease];
+    self.actionText = self.readyText;
 }
 -(void)setWaiting{
 	self.isRecording = NO;
 	self.isWaiting = YES;
-	self.buttonLight = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"waiting" ofType:@"png"]];
-    self.actionText = @"Cancel";
+	self.buttonLight = [[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"waiting" ofType:@"png"]] autorelease];
+    self.actionText = self.waitingText;
 }
 -(void)setRecording{
 	self.isRecording = YES;
 	self.isWaiting = NO;
-	self.buttonLight = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"recording" ofType:@"png"]];
-    self.actionText = @"Stop Recording";
+	self.buttonLight = [[[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"recording" ofType:@"png"]] autorelease];
+    self.actionText = self.recordingText;
 }
 
 @end
