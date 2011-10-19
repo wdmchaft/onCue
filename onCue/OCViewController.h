@@ -29,6 +29,9 @@
 	IBOutlet NSPopUpButton *videoInputPopUp;
 	IBOutlet NSPopUpButton *audioInputPopUp;
 	
+	NSDateFormatter				*dateFormatter;
+	
+	
 @private
 	NSTimer *_startTimer;
 	NSTimer *_stopTimer;
@@ -45,6 +48,7 @@
     NSImage			*statusHighlightImage;
 					/* Timers */
 	NSTimer				*audioLevelTimer;
+	NSTimer				*snapshotTimer;
 					/* Outputs */
 	QTCaptureView               *captureView;
 	QTCaptureVideoPreviewOutput *previewOutput;
@@ -59,11 +63,14 @@
 	NSArray						*audioDevices;
 					/* Recording */
     NSURL                       *saveToURL;
+	
+	CVImageBufferRef mCurrentImageBuffer;
 }
 
 	/* Window */
 @property (retain) IBOutlet MainWindowController *windowController;
 @property (retain) IBOutlet NSWindow *mainWindow;
+@property (retain) NSTabView *tabView;
 
 	/* UI */
 @property (retain) IBOutlet NSLevelIndicator *audioLevelMeter;
@@ -119,4 +126,11 @@
 
 -(void)viewWillAppear;
 -(void)viewWillDisappear;
+
+-(void)updateCurrentImage:(CVImageBufferRef)videoFrame;
+
+-(void)saveImage:(CVImageBufferRef)image toURL:(NSURL*)url;
+
+-(NSURL*)getSaveURL;
+-(NSString*)getSaveString;
 @end

@@ -16,7 +16,7 @@ recordButton, saveButton=_saveButton,
 saveToTextField=_saveToTextField, windowController, 
 saveToURL, movieFileOutput, 
 videoDevices, audioDevices,
-mainWindow;
+mainWindow, tabView;
 
 -(void)dealloc
 {
@@ -121,19 +121,69 @@ mainWindow;
 	[drawer setContentView:[self preview]];
 	[drawer setParentWindow:self.mainWindow];
 }
+-(void)updateCurrentImage:(CVImageBufferRef)videoFrame{
+	CVImageBufferRef imageBufferToRelease;
+	
+    CVBufferRetain(videoFrame);
+	
+    @synchronized (self) {
+        imageBufferToRelease = mCurrentImageBuffer;
+        mCurrentImageBuffer = videoFrame;
+    }
+    CVBufferRelease(imageBufferToRelease);
+}
 -(void)captureOutput:(QTCaptureOutput *)captureOutput 
  didOutputVideoFrame:(CVImageBufferRef)videoFrame 
 	withSampleBuffer:(QTSampleBuffer *)sampleBuffer 
 	  fromConnection:(QTCaptureConnection *)connection{
-//	CVImageBufferRef imageBufferToRelease;
+	[self updateCurrentImage:videoFrame];
+}
+-(void)saveImage:(CVImageBufferRef)image toURL:(NSURL*)url{
 	
-//    CVBufferRetain(videoFrame);
+	NSCIImageRep *imageRep = [NSCIImageRep imageRepWithCIImage:[CIImage imageWithCVImageBuffer:image]];
+    
+    NSImage *_image = [[NSImage alloc] initWithSize:[imageRep size]];
+    [_image addRepresentation:imageRep];
+    
+    NSData *bitmapData = [_image TIFFRepresentation];
+    NSBitmapImageRep *bitmapRep = [NSBitmapImageRep imageRepWithData:bitmapData];
+    NSData *imageData = [bitmapRep representationUsingType:NSJPEGFileType properties:nil];
+    
+    [_image release];
+    _image = [[NSImage alloc] initWithData:imageData];
+    
+	NSBitmapImageRep *imgRep = [[_image representations] objectAtIndex: 0];
+	NSData *data = [imgRep representationUsingType: NSPNGFileType properties: nil];
+	[data writeToFile: [self getSaveString] atomically: NO];
+	
+	[_image release];
+	
+	
+	
 //	
-//    @synchronized (self) {
-//        imageBufferToRelease = mCurrentImageBuffer;
-//        mCurrentImageBuffer = videoFrame;
-//    }
-//    CVBufferRelease(imageBufferToRelease);
+//	CVPixelBufferLockBaseAddress(image,0); 
+//	/*Get information about the image*/
+//	uint8_t *baseAddress = (uint8_t *)CVPixelBufferGetBaseAddress(image); 
+//	size_t bytesPerRow = CVPixelBufferGetBytesPerRow(image); 
+//	size_t width = CVPixelBufferGetWidth(image); 
+//	size_t height = CVPixelBufferGetHeight(image); 
+//	
+//	/*We unlock the  image buffer*/
+//	CVPixelBufferUnlockBaseAddress(image,0);
+//	
+//	/*Create a CGImageRef from the CVImageBufferRef*/
+//	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB(); 
+//	CGContextRef newContext = CGBitmapContextCreate(baseAddress, width, height, 8, bytesPerRow, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst); 
+//	CGImageRef newImage = CGBitmapContextCreateImage(newContext); 
+//	
+//	/*We release some components*/
+//	CGContextRelease(newContext); 
+//	CGColorSpaceRelease(colorSpace);
+//	
+//	/*Write to file*/
+//	CGImageDestinationRef dr = CGImageDestinationCreateWithURL ((CFURLRef)url, (CFStringRef)@"public.png" , 1, NULL);
+//    CGImageDestinationAddImage(dr, newImage, NULL);
+//    CGImageDestinationFinalize(dr);
 }
 -(CIImage*)view:(QTCaptureView *)view willDisplayImage:(CIImage *)image{
 	return image;
@@ -169,12 +219,26 @@ mainWindow;
 	}
 }
 #pragma mark Recording
-- (IBAction)recordButtonPressed:(id)sender{
-	if ([self isRecording] || [self isWaiting])
-		[self stop];
-	else
-		[self start];
+-(NSURL*)getSaveURL{
+	return nil;
 }
+-(NSString*)getSaveString{
+	return nil;
+}
+- (IBAction)recordButtonPressed:(id)sender{
+		// Record Video
+	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"recordImages"]){
+		if ([self isRecording] || [self isWaiting])
+			[self stop];
+		else
+			[self start];
+	} 
+		// Record Images
+	else{
+		[self saveImage:mCurrentImageBuffer toURL:[self getSaveURL]];
+	}
+}
+
 -(BOOL)scheduleStopDate:(NSDate *)stopDate{
 	if ([self.stopTimer isValid])
 		[self.stopTimer invalidate];
@@ -229,8 +293,16 @@ mainWindow;
 - (NSDate *)endDate{
 	return nil;
 }
-- (void)activateAllOptions{}
-- (void)deactivateAllOptions{}
+- (void)activateAllOptions{
+	[self.saveButton setEnabled:YES];
+	[audioInputPopUp setEnabled:YES];
+	[videoInputPopUp setEnabled:YES];
+}
+- (void)deactivateAllOptions{
+	[self.saveButton setEnabled:NO];
+	[audioInputPopUp setEnabled:NO];
+	[videoInputPopUp setEnabled:NO];
+}
 -(NSView *)preview{
 	return captureView;
 }

@@ -23,6 +23,15 @@
 	
 	[[myTabView tabViewItemAtIndex:0] setView:continuousVC.view];
 	[[myTabView tabViewItemAtIndex:1] setView:motionVC.view];
+	
+	switch ([myTabView indexOfTabViewItem:[myTabView selectedTabViewItem]]){
+		case 0:
+			currentVC = continuousVC;
+			break;
+		case 1:
+			currentVC = motionVC;
+			break;
+	}
 }
 
 -(void)dealloc{
@@ -30,18 +39,14 @@
 	[motionVC release];
 }
 
-//- (BOOL)tabView:(NSTabView *)tabView shouldSelectTabViewItem:(NSTabViewItem *)tabViewItem{
-//	return YES;
-//}
+- (BOOL)tabView:(NSTabView *)tabView shouldSelectTabViewItem:(NSTabViewItem *)tabViewItem{
+	if ([currentVC isRecording] || [currentVC isWaiting])
+		return NO;
+	return YES;
+}
 - (void)tabView:(NSTabView *)tabView willSelectTabViewItem:(NSTabViewItem *)tabViewItem{
 	 [self switchViewController:tabView item:tabViewItem];
 }
-//- (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem{
-//
-//}
-//- (void)tabViewDidChangeNumberOfTabViewItems:(NSTabView *)tabView{
-//	
-//}
 
 - (void)switchViewController:(NSTabView*)tabView item:(NSTabViewItem*)nextItem {
 	OCViewController *newController = nil;
@@ -64,7 +69,10 @@
 	}
 	[oldController viewWillDisappear];
 	[newController viewWillAppear];
-
+	if (currentVC) {
+		[currentVC release];
+	}
+	currentVC = [newController retain];
 }
 
 @end

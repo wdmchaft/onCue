@@ -195,6 +195,7 @@
 		23EC95CA143936BA00823C49 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = EggDevil;
 			};
 			buildConfigurationList = 23EC95CD143936BA00823C49 /* Build configuration list for PBXProject "onCue" */;

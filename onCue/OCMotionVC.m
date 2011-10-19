@@ -36,6 +36,9 @@
 	recordLengthSeconds = @"10";
 	
 	[number_formatter release];
+	
+	dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateFormat:@"M-d-yy_h-mm_a"];
     
     return self;
 }
@@ -48,9 +51,10 @@
 -(void)awakeFromNib{
 	[super awakeFromNib];
 	camController.readyText = @"Set Trigger";
+	camController.waitingText = @"Clear Trigger";
 	[camController setReady];
 	[[self.saveToTextField cell] setAttributedStringValue: [[[NSAttributedString alloc]    
-															 initWithString: @"onCue will automatically save each recording to ~/Movies/onCue/. Files are named with a time stamp."
+															 initWithString: @"No location set. onCue will automatically save to your Movies folder."
 															 attributes: [NSDictionary 
 																		  dictionaryWithObject: [NSColor colorWithCalibratedRed:0.326 green:0.000 blue:0.000 alpha:1.000] 
 																		  forKey: NSForegroundColorAttributeName]] autorelease]];
@@ -73,6 +77,8 @@
  didOutputVideoFrame:(CVImageBufferRef)videoFrame 
 	withSampleBuffer:(QTSampleBuffer *)sampleBuffer 
 	  fromConnection:(QTCaptureConnection *)connection{
+
+	[self updateCurrentImage:videoFrame];
 	
 	CIImage *image = [CIImage imageWithCVImageBuffer:videoFrame];
 	
@@ -156,6 +162,8 @@
 	[self.waitTimeInput setEnabled:self.waitButton.state];
 	[self.recordTimeInput setEnabled:YES];
 	[self.sensSlider setEnabled:YES];
+	
+	[super activateAllOptions];
 
 }
 - (void)deactivateAllOptions{
@@ -164,6 +172,7 @@
 	[self.recordTimeInput setEnabled:NO];
 	[self.sensSlider setEnabled:NO];
 
+	[super deactivateAllOptions];
 }
 - (NSDate *)startDate{
 	if (waitButton.state)
@@ -195,25 +204,24 @@
     
     handler = ^(NSInteger result) {
         if (result != 0){
-			self.saveToURL = [openPanel URL];
+			
+			NSURL *url  = [openPanel URL];
+			NSString *urlString = [url absoluteString];
+			urlString = [[urlString stringByAppendingString:[dateFormatter stringFromDate:[NSDate date]]] stringByAppendingString:@".mov"];
+			self.saveToURL =  [NSURL URLWithString:urlString];
 			NSString *path = [[openPanel URL] path];
 				// Clear off text field
 			[self.saveToTextField setHidden:YES];
 				// Make the button wider to fit path
 			NSRect frame = [self.saveButton frame];
-			
 			frame.size.width = [path length] * 7;
-			
 			[[self.saveButton animator] setFrame:frame];
-			
 				// Set the path as button label
 			[self.saveButton setTitle:path];
 		}
-        else{
-			
+        else
             [self reset];
-        }
-        
+		
     };
 	[openPanel setCanChooseDirectories:YES];
 	[openPanel setCanChooseFiles:NO];
@@ -233,34 +241,61 @@
 		return;
 	}
 
-	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:[NSDateFormatter dateFormatFromTemplate:@"MMMdyyyyhmma" options:0 locale:[NSLocale currentLocale]]];
-	NSString *path = [@"~/Movies/onCue/" stringByExpandingTildeInPath];
+	[[NSFileManager defaultManager] moveItemAtURL:outputFileURL 
+												toURL:[self getSaveURL]
+												error:nil];
+}
+-(NSString*)getSaveString{
+	return [[self getSaveURL] absoluteString];
+}
+-(NSURL*)getSaveURL{
+	NSString *path = [@"~/Movies/onCue" stringByExpandingTildeInPath];
+	NSString *suffix = @".mov";
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"recordImages"])
+		suffix = @".png";
 	
+	NSError *err = nil;
+	BOOL directory;
 	if (self.saveToURL == nil)
 	{
 			//First, set up the save to directory
-		NSError *err = nil;
-		BOOL directory;
 		if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&directory])
 			[[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:path isDirectory:YES]  withIntermediateDirectories:YES attributes:nil error:&err];
 		if (err != nil)
 			NSLog(@"Error creating save path directory.");
 		
 			// Now set up the file itself
-		path = [[[path stringByAppendingString:@"/"] stringByAppendingString:[formatter stringFromDate:[NSDate date]]] stringByAppendingString:@".mov"];
+		path = [[[path stringByAppendingString:@"/"] stringByAppendingString:[dateFormatter stringFromDate:[NSDate date]]] stringByAppendingString:suffix];
+	}
+	else
+		path = [[[[self.saveToURL absoluteString] stringByAppendingString:@"/"] stringByAppendingString:[dateFormatter stringFromDate:[NSDate date]]] stringByAppendingString:suffix];
+	
+	if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&directory]){
+		NSString *newpath = [path stringByDeletingPathExtension];
+		if (!directory){
+			[[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:newpath isDirectory:YES]  withIntermediateDirectories:YES attributes:nil error:&err];	
+			NSURL *moveTo = [NSURL URLWithString:[newpath stringByAppendingString:[@"/1" stringByAppendingString:suffix]]];
+			[[NSFileManager defaultManager] moveItemAtURL:[NSURL fileURLWithPath:path] 
+													toURL:moveTo
+													error:&err];
+			if (err != nil)
+				[[NSAlert alertWithError:err] beginSheetModalForWindow:[self.view window] 
+														 modalDelegate:self 
+														didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) 
+														   contextInfo:NULL];
+			return [NSURL URLWithString:[newpath stringByAppendingPathComponent:[@"2" stringByAppendingString:suffix]]];
+		}
+		int i = 1;
+		path = [newpath stringByAppendingPathComponent:[@"1" stringByAppendingString:suffix]];
+		while ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&directory]){
+			path = [[path stringByAppendingPathComponent:[NSString stringWithFormat:@"%d", ++i]] stringByAppendingString:suffix];
+		}
 		
-		[[NSFileManager defaultManager] moveItemAtURL:outputFileURL 
-												toURL:[NSURL fileURLWithPath:path]
-												error:nil];
 	}
-	else{
-		path = [[[[self.saveToURL absoluteString] stringByAppendingString:@"/"] stringByAppendingString:[formatter stringFromDate:[NSDate date]]] stringByAppendingString:@".mov"];
-		[[NSFileManager defaultManager] moveItemAtURL:outputFileURL toURL:[NSURL fileURLWithPath:path] error:nil];
-	}
-
-	[formatter release];
-	[self reset];
+	
+	
+		
+	return [NSURL URLWithString:path];
 }
 -(void)start{
 	if ([self isRecording] || [self.startTimer isValid])
@@ -278,11 +313,15 @@
 }
 -(void)stop{
 	[super stop];
+	if ([self.startTimer isValid])
+		[self.startTimer invalidate];
+	if ([self.stopTimer isValid])
+		[self.stopTimer invalidate];
 	[camController setReady];
 }
 -(void)setMotionDetector{
 	[self deactivateMotionDetector];
-	self.startTimer = [NSTimer scheduledTimerWithTimeInterval:.01 target:self selector:@selector(shouldStartRecording:) userInfo:nil repeats:YES];
+	self.startTimer = [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(shouldStartRecording:) userInfo:nil repeats:YES];
 }
 -(void)deactivateMotionDetector{
 	if ([self.startTimer isValid])
@@ -291,8 +330,8 @@
 -(void)shouldStartRecording:(id)sender{
 	if(![motionAlertText isHidden]){
 		[self scheduleStopDate:[self endDate]];
-		[self startRecording];
-		[camController setRecording];
+		if (self.isWaiting)
+			[self startRecording];
 	}
 }
 -(void)stopRecording{

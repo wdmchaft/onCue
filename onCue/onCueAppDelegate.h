@@ -18,6 +18,8 @@
 	IBOutlet MainWindowController *windowController;
 	IBOutlet NSButton *quietSave;
 	
+	OCViewController *currentVC;
+	
 	 /* Preload the various views */
 	OCContinuousVC *continuousVC;
 	OCMotionVC *motionVC;

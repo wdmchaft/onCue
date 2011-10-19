@@ -52,7 +52,7 @@ typedef enum {
 	
 		// Force color on save location placeholder
     [[self.saveToTextField cell] setAttributedStringValue: [[[NSAttributedString alloc]    
-															 initWithString: @"No location set… onCue will prompt you for a location to save to after recording is complete."
+															 initWithString: @"No location set… onCue will prompt you for a save location after recording is finished."
 															 attributes: [NSDictionary 
 																		  dictionaryWithObject: [NSColor colorWithCalibratedRed:0.326 green:0.000 blue:0.000 alpha:1.000] 
 																		  forKey: NSForegroundColorAttributeName]] autorelease]];
@@ -178,18 +178,14 @@ typedef enum {
 	[endTimeInput setEnabled:YES];
 	[_startSelection setEnabled:YES];
 	[_endSelection setEnabled:YES];
-	[self.saveButton setEnabled:YES];
-	[audioInputPopUp setEnabled:YES];
-	[videoInputPopUp setEnabled:YES];
+	[super activateAllOptions];
 }
 -(void)deactivateAllOptions{
 	[startTimeInput setEnabled:NO];
 	[endTimeInput setEnabled:NO];
 	[_startSelection setEnabled:NO];
 	[_endSelection setEnabled:NO];
-	[self.saveButton setEnabled:NO];
-	[audioInputPopUp setEnabled:NO];
-	[videoInputPopUp setEnabled:NO];
+	[super deactivateAllOptions];
 }
 - (NSDate *)startDate{
 	switch ([[_startSelection selectedCell] tag]) {
@@ -319,7 +315,6 @@ typedef enum {
 				// Now set up the file itself
 			[formatter setDateFormat:[NSDateFormatter dateFormatFromTemplate:@"MMMdyyyyhmma" options:0 locale:[NSLocale currentLocale]]];
 			path = [[[path stringByAppendingString:@"/"] stringByAppendingString:[formatter stringFromDate:[NSDate date]]] stringByAppendingString:@".mov"];
-			NSLog(@"%@",path);
 			
 			[[NSFileManager defaultManager] moveItemAtURL:outputFileURL 
 													toURL:[NSURL fileURLWithPath:path]
@@ -376,6 +371,63 @@ typedef enum {
 	
 	
 	[self reset];
+}
+-(NSURL*)getSaveURL{
+	__block NSURL *filename = nil;
+	NSString *suffix = @".mov";
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"recordImages"])
+		suffix = @".png";
+	if (self.saveToURL == nil)
+	{
+		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"quietSave"]){
+				//First, set up the save to directory
+			NSString *path = [@"~/Movies/onCue/" stringByExpandingTildeInPath];
+			NSError *err = nil;
+			BOOL directory;
+			if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&directory])
+				[[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:path isDirectory:YES]  withIntermediateDirectories:YES attributes:nil error:&err];
+			if (err != nil)
+				NSLog(@"Error creating save path directory.");
+			
+				// Now set up the file itself
+			path = [[[path stringByAppendingString:@"/"] stringByAppendingString:[dateFormatter stringFromDate:[NSDate date]]] stringByAppendingString:suffix];
+			filename = [NSURL URLWithString:path];
+		}
+		else{
+				// SAVE PANEL ATTACHED TO WINDOW
+			if ([[self.windowController window] isVisible]){
+					// Move the recorded temporary file to a user-specified location
+				NSSavePanel *savePanel = [NSSavePanel savePanel];
+				[savePanel setAllowedFileTypes:[NSArray arrayWithObject:suffix]];
+				[savePanel setCanCreateDirectories:YES];
+				[savePanel setCanSelectHiddenExtension:NO];
+				[savePanel beginSheetModalForWindow:self.mainWindow completionHandler:^(NSInteger result) {
+					if (result == NSOKButton) {
+						filename = [savePanel URL];
+					}
+				}];
+			}
+				// FREE FLOATING SAVE PANEL
+			else { 
+				NSSavePanel *savePanel = [NSSavePanel savePanel];
+				[savePanel setAllowedFileTypes:[NSArray arrayWithObject:suffix]];
+				[savePanel setCanCreateDirectories:YES];
+				[savePanel setCanSelectHiddenExtension:NO];
+				[[savePanel.windowController window] orderFrontRegardless];
+				void (^handler) (NSInteger);
+				handler = ^(NSInteger result) {
+						//If cancelled, onCue continues recording
+					if (result == NSOKButton) {
+						filename = [savePanel URL];
+					}
+				};
+				[savePanel beginWithCompletionHandler:handler];
+			}
+		}
+	}
+	else
+		return self.saveToURL;
+	return filename;
 }
 - (void)controlTextDidEndEditing:(NSNotification *)obj
 {
