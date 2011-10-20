@@ -7,6 +7,9 @@
 	//
 
 #import <QTKit/QTKit.h>
+#import <Cocoa/Cocoa.h>
+#import "MainWindowController.h"
+#import "OCVideoView.h"
 #import "OCViewController.h"
 
 @implementation OCViewController
@@ -16,7 +19,7 @@ recordButton, saveButton=_saveButton,
 saveToTextField=_saveToTextField, windowController, 
 saveToURL, movieFileOutput, 
 videoDevices, audioDevices,
-mainWindow, tabView;
+mainWindow, tabView, drawer;
 
 -(void)dealloc
 {
@@ -24,22 +27,24 @@ mainWindow, tabView;
 	[movieFileOutput release];
 	[audioPreviewOutput release];
 	[captureView release];
-	[previewOutput release];
+	[_preview release];
 	
 	[super dealloc];
 }
 -(void)viewWillAppear{
-
+	[session startRunning];
 }
 -(void)viewWillDisappear{
-	[drawer close];
+	[session stopRunning];
+	if ([drawer state] > 0)
+		[drawer close];
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (!self) 
 		return nil;
-	
+	_recordingImages = NO;
 	session = [[QTCaptureSession alloc] init];
 	
 		// Create Outputs
@@ -50,14 +55,6 @@ mainWindow, tabView;
 	audioPreviewOutput = [[QTCaptureAudioPreviewOutput alloc] init];
 	[audioPreviewOutput setVolume:0.0];
 	[session addOutput:audioPreviewOutput error:nil];
-
-	captureView = [[QTCaptureView alloc] init];
-    [captureView setCaptureSession:session];
-    [captureView setDelegate:self];
-	
-	previewOutput = [[QTCaptureVideoPreviewOutput alloc] init];
-	[previewOutput setDelegate:self];
-	[session addOutput:previewOutput error:nil];
 	
 	[session startRunning];
 	
@@ -98,15 +95,7 @@ mainWindow, tabView;
                                              selector:@selector(connectionFormatDidChange:) 
                                                  name:QTCaptureConnectionFormatDescriptionDidChangeNotification 
                                                object:nil];
-//	[[NSNotificationCenter defaultCenter] addObserver:self 
-//                                             selector:@selector(deviceAttributeWillChange:) 
-//                                                 name:QTCaptureDeviceAttributeWillChangeNotification 
-//                                               object:nil];
-//	[[NSNotificationCenter defaultCenter] addObserver:self 
-//                                             selector:@selector(deviceAttributeDidChange:) 
-//                                                 name:QTCaptureDeviceAttributeDidChangeNotification 
-//                                               object:nil];
-//    
+
     audioLevelTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateAudioLevels:) userInfo:nil repeats:YES];
 
 	[self setVideoRecordingCompression:@"QTCompressionOptionsSD480SizeH264Video"];
@@ -118,29 +107,12 @@ mainWindow, tabView;
 	drawer = [[NSDrawer alloc] initWithContentSize:NSSizeFromCGSize(CGSizeMake(480, 320)) preferredEdge:NSMaxYEdge];
 	[drawer setLeadingOffset:offset];
 	[drawer setTrailingOffset:offset];
-	[drawer setContentView:[self preview]];
+	[drawer setContentView:_preview];
 	[drawer setParentWindow:self.mainWindow];
 }
--(void)updateCurrentImage:(CVImageBufferRef)videoFrame{
-	CVImageBufferRef imageBufferToRelease;
+-(void)saveImage:(CIImage*)image toURL:(NSURL*)url{
 	
-    CVBufferRetain(videoFrame);
-	
-    @synchronized (self) {
-        imageBufferToRelease = mCurrentImageBuffer;
-        mCurrentImageBuffer = videoFrame;
-    }
-    CVBufferRelease(imageBufferToRelease);
-}
--(void)captureOutput:(QTCaptureOutput *)captureOutput 
- didOutputVideoFrame:(CVImageBufferRef)videoFrame 
-	withSampleBuffer:(QTSampleBuffer *)sampleBuffer 
-	  fromConnection:(QTCaptureConnection *)connection{
-	[self updateCurrentImage:videoFrame];
-}
--(void)saveImage:(CVImageBufferRef)image toURL:(NSURL*)url{
-	
-	NSCIImageRep *imageRep = [NSCIImageRep imageRepWithCIImage:[CIImage imageWithCVImageBuffer:image]];
+	NSCIImageRep *imageRep = [NSCIImageRep imageRepWithCIImage:image];
     
     NSImage *_image = [[NSImage alloc] initWithSize:[imageRep size]];
     [_image addRepresentation:imageRep];
@@ -157,36 +129,6 @@ mainWindow, tabView;
 	[data writeToFile: [self getSaveString] atomically: NO];
 	
 	[_image release];
-	
-	
-	
-//	
-//	CVPixelBufferLockBaseAddress(image,0); 
-//	/*Get information about the image*/
-//	uint8_t *baseAddress = (uint8_t *)CVPixelBufferGetBaseAddress(image); 
-//	size_t bytesPerRow = CVPixelBufferGetBytesPerRow(image); 
-//	size_t width = CVPixelBufferGetWidth(image); 
-//	size_t height = CVPixelBufferGetHeight(image); 
-//	
-//	/*We unlock the  image buffer*/
-//	CVPixelBufferUnlockBaseAddress(image,0);
-//	
-//	/*Create a CGImageRef from the CVImageBufferRef*/
-//	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB(); 
-//	CGContextRef newContext = CGBitmapContextCreate(baseAddress, width, height, 8, bytesPerRow, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst); 
-//	CGImageRef newImage = CGBitmapContextCreateImage(newContext); 
-//	
-//	/*We release some components*/
-//	CGContextRelease(newContext); 
-//	CGColorSpaceRelease(colorSpace);
-//	
-//	/*Write to file*/
-//	CGImageDestinationRef dr = CGImageDestinationCreateWithURL ((CFURLRef)url, (CFStringRef)@"public.png" , 1, NULL);
-//    CGImageDestinationAddImage(dr, newImage, NULL);
-//    CGImageDestinationFinalize(dr);
-}
--(CIImage*)view:(QTCaptureView *)view willDisplayImage:(CIImage *)image{
-	return image;
 }
 -(void)launchMenuBar{
 		//Create the NSStatusBar and set its length
@@ -208,22 +150,15 @@ mainWindow, tabView;
 	statusItem = nil;
 	[self restoreMainWindow];
 }
--(IBAction)handleRecordMenuItem:(id)sender{
-	if (![self isRecording]){
-		[self start];
-		[self.recordButton setState:NSOnState];
-	}
-	else {
-		[self stop];
-		[self.recordButton setState:NSOffState];
-	}
-}
 #pragma mark Recording
 -(NSURL*)getSaveURL{
 	return nil;
 }
 -(NSString*)getSaveString{
 	return nil;
+}
+-(IBAction)pictureOutputToggled{
+	
 }
 - (IBAction)recordButtonPressed:(id)sender{
 		// Record Video
@@ -235,10 +170,15 @@ mainWindow, tabView;
 	} 
 		// Record Images
 	else{
-		[self saveImage:mCurrentImageBuffer toURL:[self getSaveURL]];
+		[self startRecordingImages];
+		
 	}
 }
-
+-(void)takeSnapshot{
+	[session startRunning];
+//	[self saveImage:mCurrentImageBuffer toURL:[self getSaveURL]];
+	[session stopRunning];
+}
 -(BOOL)scheduleStopDate:(NSDate *)stopDate{
 	if ([self.stopTimer isValid])
 		[self.stopTimer invalidate];
@@ -297,14 +237,13 @@ mainWindow, tabView;
 	[self.saveButton setEnabled:YES];
 	[audioInputPopUp setEnabled:YES];
 	[videoInputPopUp setEnabled:YES];
+	[previewButton setEnabled:YES];
 }
 - (void)deactivateAllOptions{
 	[self.saveButton setEnabled:NO];
 	[audioInputPopUp setEnabled:NO];
 	[videoInputPopUp setEnabled:NO];
-}
--(NSView *)preview{
-	return captureView;
+	[previewButton setEnabled:NO];
 }
 - (IBAction)toggleDrawer:(id)sender
 {
@@ -507,6 +446,10 @@ mainWindow, tabView;
 	[self.mainWindow close];
 	[self.windowController close];
 }
+-(void)drawerWillOpen:(NSNotification *)notification{
+	if (![session isRunning])
+		[session startRunning];
+}
 #pragma mark Recording
 -(void) setVideoRecordingCompression:(NSString *)compression{
         // Set Compression
@@ -531,6 +474,18 @@ mainWindow, tabView;
 - (void)stopRecording{
 	[self setRecording:FALSE];
 	[camController setReady];
+}
+- (void)startRecordingImages{
+	_recordingImages = YES;
+	[drawer close];
+	[session stopRunning];
+	[self deactivateAllOptions];
+}
+- (void)stopRecordingImages{
+	_recordingImages = NO;
+}
+-(BOOL)isRecordingImages{
+	return _recordingImages;
 }
 - (BOOL)isRecording
 {

@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		23943225143E3A6D0093217F /* CamController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23943224143E3A6D0093217F /* CamController.m */; };
+		23575376144FB9DD00EDAAE6 /* CamController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23575371144FB9DC00EDAAE6 /* CamController.m */; };
+		23575377144FB9DD00EDAAE6 /* OCContinuousVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 23575373144FB9DC00EDAAE6 /* OCContinuousVC.m */; };
+		23575378144FB9DD00EDAAE6 /* OCVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23575375144FB9DD00EDAAE6 /* OCVideoView.m */; };
+		2357537B144FBC8300EDAAE6 /* OCMotionVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2357537A144FBC8300EDAAE6 /* OCMotionVideoView.m */; };
 		2394322A143E7ECC0093217F /* OCMotionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 23943228143E7ECC0093217F /* OCMotionVC.m */; };
 		2394322B143E7ECC0093217F /* OCMotion.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23943229143E7ECC0093217F /* OCMotion.xib */; };
 		23943230143FE6E90093217F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2394322E143FE6DC0093217F /* Accelerate.framework */; };
@@ -27,14 +30,19 @@
 		23EC960714393BE800823C49 /* waiting.png in Resources */ = {isa = PBXBuildFile; fileRef = 23EC960214393BE800823C49 /* waiting.png */; };
 		23EC960814393BE800823C49 /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = 23EC960314393BE800823C49 /* button.png */; };
 		23EC960914393BE800823C49 /* menu_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 23EC960414393BE800823C49 /* menu_icon.png */; };
-		23EC960C14393CB500823C49 /* OCContinuousVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EC960B14393CB500823C49 /* OCContinuousVC.m */; };
 		23EC960F143A557000823C49 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23EC960D143A556200823C49 /* QTKit.framework */; };
 		23EC9612143BFE4F00823C49 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23EC9610143BFE4100823C49 /* CoreVideo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		23943223143E3A6D0093217F /* CamController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CamController.h; path = ../CamController.h; sourceTree = "<group>"; };
-		23943224143E3A6D0093217F /* CamController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CamController.m; path = ../CamController.m; sourceTree = "<group>"; };
+		23575370144FB9DC00EDAAE6 /* CamController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CamController.h; sourceTree = "<group>"; };
+		23575371144FB9DC00EDAAE6 /* CamController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CamController.m; sourceTree = "<group>"; };
+		23575372144FB9DC00EDAAE6 /* OCContinuousVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCContinuousVC.h; sourceTree = "<group>"; };
+		23575373144FB9DC00EDAAE6 /* OCContinuousVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCContinuousVC.m; sourceTree = "<group>"; };
+		23575374144FB9DC00EDAAE6 /* OCVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCVideoView.h; sourceTree = "<group>"; };
+		23575375144FB9DD00EDAAE6 /* OCVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCVideoView.m; sourceTree = "<group>"; };
+		23575379144FBC8300EDAAE6 /* OCMotionVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMotionVideoView.h; sourceTree = "<group>"; };
+		2357537A144FBC8300EDAAE6 /* OCMotionVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCMotionVideoView.m; sourceTree = "<group>"; };
 		23943227143E7ECC0093217F /* OCMotionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMotionVC.h; sourceTree = "<group>"; };
 		23943228143E7ECC0093217F /* OCMotionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCMotionVC.m; sourceTree = "<group>"; };
 		23943229143E7ECC0093217F /* OCMotion.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OCMotion.xib; sourceTree = "<group>"; };
@@ -65,8 +73,6 @@
 		23EC960214393BE800823C49 /* waiting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waiting.png; sourceTree = "<group>"; };
 		23EC960314393BE800823C49 /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
 		23EC960414393BE800823C49 /* menu_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_icon.png; sourceTree = "<group>"; };
-		23EC960A14393CB500823C49 /* OCContinuousVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OCContinuousVC.h; path = ../OCContinuousVC.h; sourceTree = "<group>"; };
-		23EC960B14393CB500823C49 /* OCContinuousVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OCContinuousVC.m; path = ../OCContinuousVC.m; sourceTree = "<group>"; };
 		23EC960D143A556200823C49 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		23EC9610143BFE4100823C49 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -130,8 +136,8 @@
 		23EC95DD143936BA00823C49 /* onCue */ = {
 			isa = PBXGroup;
 			children = (
-				23943223143E3A6D0093217F /* CamController.h */,
-				23943224143E3A6D0093217F /* CamController.m */,
+				23575370144FB9DC00EDAAE6 /* CamController.h */,
+				23575371144FB9DC00EDAAE6 /* CamController.m */,
 				23EC95E9143936BA00823C49 /* onCueAppDelegate.h */,
 				23EC95EA143936BA00823C49 /* onCueAppDelegate.m */,
 				23EC95F4143937BD00823C49 /* MainWindowController.h */,
@@ -141,13 +147,17 @@
 				23EC95F71439389400823C49 /* OCViewController.h */,
 				23EC95F81439389400823C49 /* OCViewController.m */,
 				23EC95F91439389400823C49 /* OCContinuous.xib */,
-				23EC960A14393CB500823C49 /* OCContinuousVC.h */,
-				23EC960B14393CB500823C49 /* OCContinuousVC.m */,
 				23943229143E7ECC0093217F /* OCMotion.xib */,
 				23943227143E7ECC0093217F /* OCMotionVC.h */,
 				23943228143E7ECC0093217F /* OCMotionVC.m */,
 				23EC95FC14393A3800823C49 /* OCButton.h */,
 				23EC95FD14393A3800823C49 /* OCButton.m */,
+				23575372144FB9DC00EDAAE6 /* OCContinuousVC.h */,
+				23575373144FB9DC00EDAAE6 /* OCContinuousVC.m */,
+				23575374144FB9DC00EDAAE6 /* OCVideoView.h */,
+				23575375144FB9DD00EDAAE6 /* OCVideoView.m */,
+				23575379144FBC8300EDAAE6 /* OCMotionVideoView.h */,
+				2357537A144FBC8300EDAAE6 /* OCMotionVideoView.m */,
 				23EC960014393BE800823C49 /* ready.png */,
 				23EC960114393BE800823C49 /* recording.png */,
 				23EC960214393BE800823C49 /* waiting.png */,
@@ -245,9 +255,11 @@
 				23EC95F6143937BD00823C49 /* MainWindowController.m in Sources */,
 				23EC95FA1439389400823C49 /* OCViewController.m in Sources */,
 				23EC95FE14393A3800823C49 /* OCButton.m in Sources */,
-				23EC960C14393CB500823C49 /* OCContinuousVC.m in Sources */,
-				23943225143E3A6D0093217F /* CamController.m in Sources */,
 				2394322A143E7ECC0093217F /* OCMotionVC.m in Sources */,
+				23575376144FB9DD00EDAAE6 /* CamController.m in Sources */,
+				23575377144FB9DD00EDAAE6 /* OCContinuousVC.m in Sources */,
+				23575378144FB9DD00EDAAE6 /* OCVideoView.m in Sources */,
+				2357537B144FBC8300EDAAE6 /* OCMotionVideoView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -32,6 +32,8 @@
 			currentVC = motionVC;
 			break;
 	}
+	
+	drawerOpen = 0;
 }
 
 -(void)dealloc{
@@ -47,10 +49,15 @@
 - (void)tabView:(NSTabView *)tabView willSelectTabViewItem:(NSTabViewItem *)tabViewItem{
 	 [self switchViewController:tabView item:tabViewItem];
 }
+-(void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem{
+	if (drawerOpen > 0)
+		[currentVC.drawer open];
+}
 
 - (void)switchViewController:(NSTabView*)tabView item:(NSTabViewItem*)nextItem {
 	OCViewController *newController = nil;
 	OCViewController *oldController = nil;
+	drawerOpen = [currentVC.drawer state];
 		// assume a different identifier has been assigned to each tab view item in IB
 	NSInteger itemIndex = [tabView indexOfTabViewItemWithIdentifier:[nextItem identifier]];
 	switch (itemIndex) {
@@ -74,5 +81,7 @@
 	}
 	currentVC = [newController retain];
 }
-
+-(IBAction)pictureOutputToggled:(id)sender{
+	[currentVC pictureOutputToggled];
+}
 @end

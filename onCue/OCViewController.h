@@ -6,10 +6,10 @@
 //  Copyright 2011 EggDevil. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-#import "MainWindowController.h"
 #import "CamController.h"
 
+@class MainWindowController;
+@class OCVideoView;
 @class QTCaptureView;
 @class QTCaptureSession;
 @class QTCaptureDeviceInput;
@@ -23,7 +23,7 @@
 @class QTSampleBuffer;
 @class QTMovieView;
 
-@interface OCViewController : NSViewController{
+@interface OCViewController : NSViewController <NSDrawerDelegate>{
 	NSStatusItem	*statusItem;
 	IBOutlet CamController *camController;
 	IBOutlet NSPopUpButton *videoInputPopUp;
@@ -31,17 +31,17 @@
 	
 	NSDateFormatter				*dateFormatter;
 	
-	
-@private
 	NSTimer *_startTimer;
 	NSTimer *_stopTimer;
 	NSLevelIndicator *_audioLevelMeter;
 	NSButton *recordButton;
 	NSButton *_saveButton;
+	IBOutlet NSButton *previewButton;
 	NSTextField *_saveToTextField;
 	MainWindowController *windowController;
 	NSWindow *mainWindow;
 	NSDrawer *drawer;
+	NSTabView *tabView;
 					/* Menu bar stuff */
     IBOutlet NSMenu *statusMenu;
     NSImage			*statusImage;
@@ -51,7 +51,6 @@
 	NSTimer				*snapshotTimer;
 					/* Outputs */
 	QTCaptureView               *captureView;
-	QTCaptureVideoPreviewOutput *previewOutput;
 	QTCaptureMovieFileOutput    *movieFileOutput;
     QTCaptureAudioPreviewOutput *audioPreviewOutput;
 					/* Session */
@@ -64,13 +63,16 @@
 					/* Recording */
     NSURL                       *saveToURL;
 	
-	CVImageBufferRef mCurrentImageBuffer;
+	BOOL _recordingImages;
+	
+	OCVideoView *_preview;
 }
 
 	/* Window */
 @property (retain) IBOutlet MainWindowController *windowController;
 @property (retain) IBOutlet NSWindow *mainWindow;
 @property (retain) NSTabView *tabView;
+@property (retain) NSDrawer *drawer;
 
 	/* UI */
 @property (retain) IBOutlet NSLevelIndicator *audioLevelMeter;
@@ -90,6 +92,7 @@
 - (void)restoreMainWindow;
 - (void)closeMainWindow;
 
+-(IBAction)pictureOutputToggled;
 - (IBAction)toggleDrawer:(id)sender;
 
 /* Device selection */
@@ -110,11 +113,12 @@
 - (void) setVideoRecordingCompression:(NSString *)compression;
 - (void)startRecording;
 - (void)stopRecording;
+- (void)startRecordingImages;
+- (void)stopRecordingImages;
 - (void)setRecording:(BOOL)recording;
 - (BOOL)isRecording;
+- (BOOL)isRecordingImages;
 - (BOOL)isWaiting;
-
--(NSView *)preview;
 
 -(NSDate *)endDate;
 -(NSDate *)startDate;
@@ -127,9 +131,7 @@
 -(void)viewWillAppear;
 -(void)viewWillDisappear;
 
--(void)updateCurrentImage:(CVImageBufferRef)videoFrame;
-
--(void)saveImage:(CVImageBufferRef)image toURL:(NSURL*)url;
+-(void)saveImage:(CIImage*)image toURL:(NSURL*)url;
 
 -(NSURL*)getSaveURL;
 -(NSString*)getSaveString;

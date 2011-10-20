@@ -23,8 +23,11 @@
 	 /* Preload the various views */
 	OCContinuousVC *continuousVC;
 	OCMotionVC *motionVC;
+	
+	@private
+	NSInteger drawerOpen;
 }
 
 - (void)switchViewController:(NSTabView*)tabView item:(NSTabViewItem*)nextItem;
-
+-(IBAction)pictureOutputToggled:(id)sender;
 @end

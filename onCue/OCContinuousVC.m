@@ -8,6 +8,8 @@
 
 #import <QTKit/QTKit.h>
 #import "OCContinuousVC.h"
+#import "OCVideoView.h"
+#import "MainWindowController.h"
 
 @implementation OCContinuousVC
 
@@ -28,6 +30,8 @@ typedef enum {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (!self) 
 		return nil;
+	
+	_preview = [[OCVideoView alloc] initWithFrame:drawer.contentView.frame andSession:session];
 
 	[self setVideoRecordingCompression:@"QTCompressionOptionsSD480SizeH264Video"];
 	

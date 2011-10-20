@@ -1272,7 +1272,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="396729636"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1920, 1080}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1058}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSAutorecalculatesContentBorderThicknessMinY">NO</bool>
 				<double key="NSContentBorderThicknessMinY">8</double>
@@ -1393,7 +1393,7 @@
 					<reference key="NSNextKeyView" ref="449318151"/>
 					<string key="NSReuseIdentifierKey">_NS:2837</string>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1920, 1080}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1058}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSAutorecalculatesContentBorderThicknessMinY">NO</bool>
 				<bool key="NSAutorecalculatesContentBorderThicknessMaxY">NO</bool>
@@ -2061,6 +2061,14 @@
 						<reference key="destination" ref="449318151"/>
 					</object>
 					<int key="connectionID">607</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">pictureOutputToggled:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="355058845"/>
+					</object>
+					<int key="connectionID">612</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -3531,7 +3539,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">611</int>
+			<int key="maxID">612</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3547,6 +3555,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">onCueAppDelegate</string>
 					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">pictureOutputToggled:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">pictureOutputToggled:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">pictureOutputToggled:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">

@@ -6,9 +6,8 @@
 //  Copyright 2011 EggDevil. All rights reserved.
 //
 
-#import "Accelerate/Accelerate.h"
-#import <QuartzCore/CIPlugIn.h>
-#import <QuartzCore/CIFilter.h>
+#import <QTKit/QTKit.h>
+#import "OCMotionVC.h"
 #import "OCViewController.h"
 
 @interface OCMotionVC : OCViewController <NSTextFieldDelegate>{
@@ -19,17 +18,6 @@
 	NSSlider  *sensSlider;
 	
 	CIImage *oldImage;
-	CIFilter *mafilter;
-	CIFilter *cropFilter;
-	CIFilter* backgroundFilter; // Uses Difference blend mode to filter out background
-	
-	CVImageBufferRef mCurrentBuffer;
-	CIImage			 *currentCIImage;
-	
-	vImagePixelCount				_histogramA[256];
-	vImagePixelCount				_histogramR[256];
-	vImagePixelCount				_histogramG[256];
-	vImagePixelCount				_histogramB[256];
 	
 	NSString						*delayMinutes;
 	NSString						*recordLengthSeconds;
@@ -44,8 +32,7 @@
 @property (retain) IBOutlet NSTextField *recordTimeInput;
 @property (retain) IBOutlet NSTextField *motionAlertText;
 @property (retain) IBOutlet NSSlider *sensSlider;
-@property (retain) CIImage *oldImage;
-@property (retain) CIImage *currentCIImage;
+
 @property (retain) NSString *delayMinutes;
 @property (retain) NSString *recordLengthSeconds;
 @property (assign) NSInteger motionLevelValue;
@@ -53,8 +40,6 @@
 - (IBAction)toggleWaiting:(id)sender;
 -(IBAction)validateWaitTime:(id)sender;
 -(IBAction)validateRecordTime:(id)sender;
-- (BOOL)motionDetected:(NSBitmapImageRep *)input;
-- (CIVector *)vectorFromExtent:(CGRect)extent;
 
 - (IBAction)setSaveLocation:(id)sender;
 

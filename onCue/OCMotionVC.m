@@ -5,29 +5,18 @@
 //  Created by Jake Van Alstyne on 10/6/11.
 //  Copyright 2011 EggDevil. All rights reserved.
 //
-
-#import <QTKit/QTKit.h>
 #import "OCMotionVC.h"
+#import "OCMotionVideoView.h"
 
 @implementation OCMotionVC
 
-@synthesize waitButton,waitTimeInput,recordTimeInput,motionAlertText, sensSlider, oldImage, currentCIImage, delayMinutes, recordLengthSeconds, motionLevelValue;
+@synthesize waitButton,waitTimeInput,recordTimeInput,motionAlertText, sensSlider, delayMinutes, recordLengthSeconds, motionLevelValue;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (!self) 
 		return nil;
-	
-	[CIPlugIn loadAllPlugIns];
-	
-	mafilter = [[CIFilter filterWithName:@"MAFilter"] retain]; //No defaults
-	
-	cropFilter = [[CIFilter filterWithName:@"CICrop"] retain];
-	[cropFilter setDefaults];
-	
-	backgroundFilter = [[CIFilter filterWithName:@"CIDifferenceBlendMode"] retain];	    // Background filter by using difference blend mode
-	[backgroundFilter setDefaults]; 
 	
 	NSNumberFormatter *number_formatter = [[NSNumberFormatter alloc] init];
 	[number_formatter setNumberStyle:NSNumberFormatterNoStyle];
@@ -39,6 +28,9 @@
 	
 	dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateFormat:@"M-d-yy_h-mm_a"];
+	
+	_preview = [[OCMotionVideoView alloc] initWithFrame:drawer.contentView.frame andSession:session];
+	[(OCMotionVideoView*)_preview setDelegate:self];
     
     return self;
 }
@@ -60,88 +52,22 @@
 																		  forKey: NSForegroundColorAttributeName]] autorelease]];
 }
 -(void)dealloc{
-	[mafilter release];
-	[cropFilter release];
-	[backgroundFilter release];
-	
 	[super dealloc];
 }
 - (IBAction)toggleWaiting:(id)sender{
 	[waitTimeInput setEnabled:[waitButton state]];
 	delayMinutes = @"2";
 }
-- (CIImage *)view:(QTCaptureView *)view willDisplayImage:(CIImage *)image {
-	return self.currentCIImage;
+- (void)startRecordingImages{
+	[super startRecordingImages];
+	self.startTimer = [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(takeSnapshot) userInfo:nil repeats:YES];
 }
--(void)captureOutput:(QTCaptureOutput *)captureOutput 
- didOutputVideoFrame:(CVImageBufferRef)videoFrame 
-	withSampleBuffer:(QTSampleBuffer *)sampleBuffer 
-	  fromConnection:(QTCaptureConnection *)connection{
-
-	[self updateCurrentImage:videoFrame];
+- (void)stopRecordingImages{
 	
-	CIImage *image = [CIImage imageWithCVImageBuffer:videoFrame];
-	
-	CGRect extent = [image extent];
-	if (self.oldImage == nil)
-		self.oldImage = image;
-	
-	[mafilter setValue: image forKey: @"inputImage2"];
-	[mafilter setValue: self.oldImage forKey: @"inputImage1"];
-	
-	self.oldImage = image;
-	
-	[backgroundFilter setValue:image forKey:@"inputBackgroundImage"];
-	[backgroundFilter setValue:[mafilter valueForKey:@"outputImage"] forKey:@"inputImage"];
-	
-	[cropFilter setValue:[backgroundFilter valueForKey:@"outputImage"] forKey:@"inputImage"];
-	[cropFilter setValue:[self vectorFromExtent:extent]  forKey:@"inputRectangle"];
-	
-	NSBitmapImageRep *rep = [[NSBitmapImageRep alloc]initWithCIImage:[cropFilter valueForKey:@"outputImage"]];
-	if([self motionDetected:rep]){
-		[self.motionAlertText setHidden:NO];
-		if ([self isRecording])
-			[self scheduleStopDate:[self endDate]];
-	}
-	else
-		[self.motionAlertText setHidden:YES];
-	[rep release];
-	
-	[cropFilter setValue:[mafilter valueForKey:@"outputImage"] forKey:@"inputImage"];
-	[cropFilter setValue:[self vectorFromExtent:extent]  forKey:@"inputRectangle"];
-	self.currentCIImage = [cropFilter valueForKey:@"outputImage"];
 }
-- (BOOL)motionDetected:(NSBitmapImageRep *)input{
-	NSSize			size = [ input size ];
-
-    vImage_Buffer	    srcBuffer;
-	srcBuffer.data = [input bitmapData];
-	srcBuffer.rowBytes = [input bytesPerRow];
-	srcBuffer.height = size.height;
-	srcBuffer.width = size.width;
-	vImagePixelCount *histograms[4];
-		// Generate the buffer
-	histograms[0] = _histogramA;
-	histograms[1] = _histogramR;
-	histograms[2] = _histogramG;
-	histograms[3] = _histogramB;
-	vImageHistogramCalculation_ARGB8888(&srcBuffer,
-											  histograms,
-											  kvImageNoFlags);
-	
-	long unsigned _sum = 0;
-	int i;
-	for (i = 128; i < 256; i++) // Ignore dark values
-		_sum += _histogramR[i];
-	self.motionLevelValue = _sum;
-	
-	double val = [self.sensSlider maxValue] - [self.sensSlider intValue];
-	if (_sum >= val)
-		return TRUE;
-	return FALSE;
-}
-- (CIVector *)vectorFromExtent:(CGRect)extent{
-	return [CIVector vectorWithX:extent.origin.x Y:extent.origin.y Z:extent.size.width	W:extent.size.height];
+-(void)takeSnapshot{
+	[session startRunning];
+	[session stopRunning];
 }
 
 -(IBAction)validateWaitTime:(id)sender{
@@ -241,15 +167,22 @@
 		return;
 	}
 
+	NSURL *moveTo = [self getSaveURL];
+	NSError *err = nil;
 	[[NSFileManager defaultManager] moveItemAtURL:outputFileURL 
-												toURL:[self getSaveURL]
-												error:nil];
+												toURL:moveTo
+												error:&err];
+	if (err != nil)
+		NSLog(@"%@",err);
+	NSLog(@"Moved From:%@ To:%@ ",outputFileURL,moveTo);
 }
 -(NSString*)getSaveString{
 	return [[self getSaveURL] absoluteString];
 }
 -(NSURL*)getSaveURL{
-	NSString *path = [@"~/Movies/onCue" stringByExpandingTildeInPath];
+	NSString *rootpath = [@"~/Movies/onCue" stringByExpandingTildeInPath];
+	NSString *dirpath = @"";
+	NSString *filepath = @"";
 	NSString *suffix = @".mov";
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"recordImages"])
 		suffix = @".png";
@@ -259,43 +192,55 @@
 	if (self.saveToURL == nil)
 	{
 			//First, set up the save to directory
-		if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&directory])
-			[[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:path isDirectory:YES]  withIntermediateDirectories:YES attributes:nil error:&err];
+		if (![[NSFileManager defaultManager] fileExistsAtPath:rootpath isDirectory:&directory])
+			[[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:rootpath isDirectory:YES]  withIntermediateDirectories:YES attributes:nil error:&err];
 		if (err != nil)
 			NSLog(@"Error creating save path directory.");
 		
 			// Now set up the file itself
-		path = [[[path stringByAppendingString:@"/"] stringByAppendingString:[dateFormatter stringFromDate:[NSDate date]]] stringByAppendingString:suffix];
+		dirpath = [[rootpath stringByAppendingString:@"/"] stringByAppendingString:[dateFormatter stringFromDate:[NSDate date]]];
+		filepath = [dirpath stringByAppendingString:suffix];
 	}
-	else
-		path = [[[[self.saveToURL absoluteString] stringByAppendingString:@"/"] stringByAppendingString:[dateFormatter stringFromDate:[NSDate date]]] stringByAppendingString:suffix];
+	else{
+		dirpath = [[[self.saveToURL absoluteString] stringByAppendingString:@"/"] stringByAppendingString:[dateFormatter stringFromDate:[NSDate date]]];
+		filepath = [dirpath stringByAppendingString:suffix];
+	}
 	
-	if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&directory]){
-		NSString *newpath = [path stringByDeletingPathExtension];
-		if (!directory){
-			[[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:newpath isDirectory:YES]  withIntermediateDirectories:YES attributes:nil error:&err];	
-			NSURL *moveTo = [NSURL URLWithString:[newpath stringByAppendingString:[@"/1" stringByAppendingString:suffix]]];
-			[[NSFileManager defaultManager] moveItemAtURL:[NSURL fileURLWithPath:path] 
-													toURL:moveTo
-													error:&err];
+	if ([[NSFileManager defaultManager] fileExistsAtPath:filepath isDirectory:&directory] || [[NSFileManager defaultManager] fileExistsAtPath:dirpath isDirectory:&directory]){
+		if (![[NSFileManager defaultManager] fileExistsAtPath:dirpath isDirectory:&directory]){
+			[[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:dirpath isDirectory:YES]  withIntermediateDirectories:YES attributes:nil error:&err];
 			if (err != nil)
 				[[NSAlert alertWithError:err] beginSheetModalForWindow:[self.view window] 
 														 modalDelegate:self 
 														didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) 
 														   contextInfo:NULL];
-			return [NSURL URLWithString:[newpath stringByAppendingPathComponent:[@"2" stringByAppendingString:suffix]]];
+			int i = 1;
+			NSString *moveTo = [dirpath stringByAppendingString:[@"/1" stringByAppendingString:suffix]];
+			while ([[NSFileManager defaultManager] fileExistsAtPath:moveTo isDirectory:&directory]){
+				moveTo = [[dirpath stringByAppendingPathComponent:[NSString stringWithFormat:@"%d", ++i]] stringByAppendingString:suffix];
+			}
+			if ([[NSFileManager defaultManager] fileExistsAtPath:filepath isDirectory:&directory]){
+				[[NSFileManager defaultManager] moveItemAtPath:filepath
+													toPath:moveTo
+													error:&err];
+				i++;
+			}
+			if (err != nil)
+				[[NSAlert alertWithError:err] beginSheetModalForWindow:[self.view window] 
+														 modalDelegate:self 
+														didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) 
+														   contextInfo:NULL];
+			return [NSURL fileURLWithPath:[dirpath stringByAppendingPathComponent:[[NSString stringWithFormat:@"%d",i] stringByAppendingString:suffix]]];
 		}
 		int i = 1;
-		path = [newpath stringByAppendingPathComponent:[@"1" stringByAppendingString:suffix]];
-		while ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&directory]){
-			path = [[path stringByAppendingPathComponent:[NSString stringWithFormat:@"%d", ++i]] stringByAppendingString:suffix];
+		filepath = [dirpath stringByAppendingPathComponent:[@"1" stringByAppendingString:suffix]];
+		while ([[NSFileManager defaultManager] fileExistsAtPath:filepath isDirectory:&directory]){
+			filepath = [[dirpath stringByAppendingPathComponent:[NSString stringWithFormat:@"%d", ++i]] stringByAppendingString:suffix];
 		}
 		
 	}
-	
-	
 		
-	return [NSURL URLWithString:path];
+	return [NSURL fileURLWithPath:filepath];
 }
 -(void)start{
 	if ([self isRecording] || [self.startTimer isValid])
