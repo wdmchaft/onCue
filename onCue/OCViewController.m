@@ -176,6 +176,7 @@ mainWindow, tabView, drawer;
 }
 -(void)takeSnapshot{
 	[session startRunning];
+//	[self saveImage:mCurrentImageBuffer toURL:[self getSaveURL]];
 	[session stopRunning];
 }
 -(BOOL)scheduleStopDate:(NSDate *)stopDate{
@@ -198,8 +199,6 @@ mainWindow, tabView, drawer;
 	return YES;
 }
 -(void)start{
-	if ([self isRecording] || [self.startTimer isValid])
-		return;
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"runFromMenubar"]){
 		[self launchMenuBar];
 		[self closeMainWindow];
@@ -446,7 +445,6 @@ mainWindow, tabView, drawer;
 -(void)closeMainWindow{
 	[self.mainWindow close];
 	[self.windowController close];
-	[self.windowController closePanel];
 }
 -(void)drawerWillOpen:(NSNotification *)notification{
 	if (![session isRunning])

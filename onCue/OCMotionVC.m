@@ -60,29 +60,13 @@
 }
 - (void)startRecordingImages{
 	[super startRecordingImages];
-	if (self.waitButton.state)
-		self.startTimer = [NSTimer scheduledTimerWithTimeInterval:60*[waitTimeInput intValue] target:self selector:@selector(setMotionDetectorImages) userInfo:nil repeats:NO];
-	else
-		[self setMotionDetectorImages];
+	self.startTimer = [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(takeSnapshot) userInfo:nil repeats:YES];
 }
 - (void)stopRecordingImages{
 	
 }
--(void)shouldStartRecordingImages:(id)sender{
-	if(![motionAlertText isHidden]){
-		[self scheduleStopDate:[self endDate]];
-		if (self.isWaiting)
-			[self startRecordingImages];
-	}
-}
--(void)setMotionDetectorImages{
-	[self deactivateMotionDetector];
-	snapshotTimer = [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(takeSnapshot) userInfo:nil repeats:YES];
-	self.startTimer = [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(shouldStartRecordingImages:) userInfo:nil repeats:YES];
-}
 -(void)takeSnapshot{
 	[session startRunning];
-	sleep(750);
 	[session stopRunning];
 }
 
@@ -261,10 +245,7 @@
 -(void)start{
 	if ([self isRecording] || [self.startTimer isValid])
 		return;
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"runFromMenubar"]){
-		[self launchMenuBar];
-		[self closeMainWindow];
-	}
+	
 	[self deactivateAllOptions];
 	[camController setWaiting];
 	
@@ -272,6 +253,8 @@
 		self.startTimer = [NSTimer scheduledTimerWithTimeInterval:60*[waitTimeInput intValue] target:self selector:@selector(setMotionDetector) userInfo:nil repeats:NO];
 	else
 		[self setMotionDetector];
+	
+	[self.recordButton setState:NO];
 }
 -(void)stop{
 	[super stop];
@@ -292,7 +275,7 @@
 -(void)shouldStartRecording:(id)sender{
 	if(![motionAlertText isHidden]){
 		[self scheduleStopDate:[self endDate]];
-		if ([self isWaiting])
+		if (self.isWaiting)
 			[self startRecording];
 	}
 }

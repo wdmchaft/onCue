@@ -10,9 +10,10 @@
 
 
 @interface MainWindowController : NSWindowController{
-	IBOutlet NSPanel* preferencePanel;
+	NSViewController *currentViewController;
+	NSArray *views;
+	/* Preload the various views */
 }
-
--(void)closePanel;
-
+@property (retain) NSArray *views;
+-(void)setMode:(int)index;
 @end
