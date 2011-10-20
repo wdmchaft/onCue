@@ -67,6 +67,7 @@
 }
 -(void)takeSnapshot{
 	[session startRunning];
+	sleep(750);
 	[session stopRunning];
 }
 

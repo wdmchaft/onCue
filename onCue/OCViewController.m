@@ -171,7 +171,6 @@ mainWindow, tabView, drawer;
 		// Record Images
 	else{
 		[self startRecordingImages];
-		
 	}
 }
 -(void)takeSnapshot{
