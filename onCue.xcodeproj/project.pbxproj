@@ -11,6 +11,7 @@
 		23575377144FB9DD00EDAAE6 /* OCContinuousVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 23575373144FB9DC00EDAAE6 /* OCContinuousVC.m */; };
 		23575378144FB9DD00EDAAE6 /* OCVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23575375144FB9DD00EDAAE6 /* OCVideoView.m */; };
 		2357537B144FBC8300EDAAE6 /* OCMotionVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2357537A144FBC8300EDAAE6 /* OCMotionVideoView.m */; };
+		239091601450DCBB00E6B326 /* icon5.png in Resources */ = {isa = PBXBuildFile; fileRef = 2390915F1450DCBB00E6B326 /* icon5.png */; };
 		2394322A143E7ECC0093217F /* OCMotionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 23943228143E7ECC0093217F /* OCMotionVC.m */; };
 		2394322B143E7ECC0093217F /* OCMotion.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23943229143E7ECC0093217F /* OCMotion.xib */; };
 		23943230143FE6E90093217F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2394322E143FE6DC0093217F /* Accelerate.framework */; };
@@ -43,6 +44,7 @@
 		23575375144FB9DD00EDAAE6 /* OCVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCVideoView.m; sourceTree = "<group>"; };
 		23575379144FBC8300EDAAE6 /* OCMotionVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMotionVideoView.h; sourceTree = "<group>"; };
 		2357537A144FBC8300EDAAE6 /* OCMotionVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCMotionVideoView.m; sourceTree = "<group>"; };
+		2390915F1450DCBB00E6B326 /* icon5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon5.png; sourceTree = "<group>"; };
 		23943227143E7ECC0093217F /* OCMotionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMotionVC.h; sourceTree = "<group>"; };
 		23943228143E7ECC0093217F /* OCMotionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCMotionVC.m; sourceTree = "<group>"; };
 		23943229143E7ECC0093217F /* OCMotion.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OCMotion.xib; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 		23EC95C8143936BA00823C49 = {
 			isa = PBXGroup;
 			children = (
+				2390915F1450DCBB00E6B326 /* icon5.png */,
 				23EC95DD143936BA00823C49 /* onCue */,
 				23EC95D6143936BA00823C49 /* Frameworks */,
 				23EC95D4143936BA00823C49 /* Products */,
@@ -240,6 +243,7 @@
 				23EC960814393BE800823C49 /* button.png in Resources */,
 				23EC960914393BE800823C49 /* menu_icon.png in Resources */,
 				2394322B143E7ECC0093217F /* OCMotion.xib in Resources */,
+				239091601450DCBB00E6B326 /* icon5.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,8 +349,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "onCue/onCue-Prefix.pch";
 				INFOPLIST_FILE = "onCue/onCue-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -358,8 +364,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "onCue/onCue-Prefix.pch";
 				INFOPLIST_FILE = "onCue/onCue-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

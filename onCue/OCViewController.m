@@ -176,7 +176,6 @@ mainWindow, tabView, drawer;
 }
 -(void)takeSnapshot{
 	[session startRunning];
-//	[self saveImage:mCurrentImageBuffer toURL:[self getSaveURL]];
 	[session stopRunning];
 }
 -(BOOL)scheduleStopDate:(NSDate *)stopDate{

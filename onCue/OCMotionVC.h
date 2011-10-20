@@ -46,5 +46,9 @@
 -(void)setMotionDetector;
 -(void)deactivateMotionDetector;
 
+-(void)setMotionDetectorImages;
+
+
 -(void)shouldStartRecording:(id)sender;
+-(void)shouldStartRecordingImages:(id)sender;
 @end
