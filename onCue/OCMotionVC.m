@@ -67,7 +67,6 @@
 }
 -(void)takeSnapshot{
 	[session startRunning];
-	sleep(750);
 	[session stopRunning];
 }
 
@@ -246,7 +245,10 @@
 -(void)start{
 	if ([self isRecording] || [self.startTimer isValid])
 		return;
-	
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"runFromMenubar"]){
+		[self launchMenuBar];
+		[self closeMainWindow];
+	}
 	[self deactivateAllOptions];
 	[camController setWaiting];
 	
