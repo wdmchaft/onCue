@@ -25,6 +25,8 @@
 	NSTimer						*motionLevelTimer;
 	IBOutlet NSLevelIndicator	*motionLevelMeter;
 	NSInteger					motionLevelValue;
+	
+		NSTimer				*snapshotTimer;
 }
 
 @property (retain) IBOutlet NSButton *waitButton;
@@ -32,6 +34,7 @@
 @property (retain) IBOutlet NSTextField *recordTimeInput;
 @property (retain) IBOutlet NSTextField *motionAlertText;
 @property (retain) IBOutlet NSSlider *sensSlider;
+@property (retain) NSTimer *snapshotTimer;
 
 @property (retain) NSString *delayMinutes;
 @property (retain) NSString *recordLengthSeconds;
@@ -47,4 +50,8 @@
 -(void)deactivateMotionDetector;
 
 -(void)shouldStartRecording:(id)sender;
+-(void)shouldSnapShot:(id)sender;
+
+-(void)reallyTakeSnapshot;
+-(void)initImageTimers;
 @end

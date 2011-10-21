@@ -58,8 +58,6 @@
 	NSBitmapImageRep *rep = [[NSBitmapImageRep alloc]initWithCIImage:[cropFilter valueForKey:@"outputImage"]];
 	if([self motionDetected:rep]){
 		[viewDelegate.motionAlertText setHidden:NO];
-		if ([viewDelegate isRecording])
-			[viewDelegate scheduleStopDate:[viewDelegate endDate]];
 	}
 	else
 		[viewDelegate.motionAlertText setHidden:YES];

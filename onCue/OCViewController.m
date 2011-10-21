@@ -481,11 +481,19 @@ mainWindow, tabView, drawer;
 - (void)startRecordingImages{
 	_recordingImages = YES;
 	[drawer close];
+	if ([self isRecording] || [self.startTimer isValid])
+		return;
 	[session stopRunning];
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"runFromMenubar"]){
+		[self launchMenuBar];
+		[self closeMainWindow];
+	}
 	[self deactivateAllOptions];
+	[camController setWaiting];
 }
 - (void)stopRecordingImages{
 	_recordingImages = NO;
+	[camController setReady];
 }
 -(BOOL)isRecordingImages{
 	return _recordingImages;

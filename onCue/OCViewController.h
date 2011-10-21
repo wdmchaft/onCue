@@ -48,7 +48,6 @@
     NSImage			*statusHighlightImage;
 					/* Timers */
 	NSTimer				*audioLevelTimer;
-	NSTimer				*snapshotTimer;
 					/* Outputs */
 	QTCaptureView               *captureView;
 	QTCaptureMovieFileOutput    *movieFileOutput;

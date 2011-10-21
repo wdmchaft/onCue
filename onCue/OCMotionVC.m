@@ -10,7 +10,7 @@
 
 @implementation OCMotionVC
 
-@synthesize waitButton,waitTimeInput,recordTimeInput,motionAlertText, sensSlider, delayMinutes, recordLengthSeconds, motionLevelValue;
+@synthesize waitButton,waitTimeInput,recordTimeInput,motionAlertText, sensSlider, delayMinutes, recordLengthSeconds, motionLevelValue, snapshotTimer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -60,14 +60,58 @@
 }
 - (void)startRecordingImages{
 	[super startRecordingImages];
+	if (self.isWaiting){
+		self.startTimer = [NSTimer scheduledTimerWithTimeInterval:[[self endDate] timeIntervalSinceDate:[NSDate date]] target:self selector:@selector(initImageTimers) userInfo:nil repeats:NO];
+	}
+	else{
+		[self initImageTimers];
+	}
 	self.startTimer = [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(takeSnapshot) userInfo:nil repeats:YES];
+	self.snapshotTimer = [NSTimer scheduledTimerWithTimeInterval:.02 target:self selector:@selector(shouldSnapShot:) userInfo:nil repeats:YES];
+	
+	NSTimeInterval interval = [[self endDate] timeIntervalSinceDate:[NSDate date]];
+	
+	self.stopTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(stopRecordingImages) userInfo:nil repeats:NO];
+}
+
+-(void)initImageTimers{
+	if ([self.startTimer isValid])
+		[self.startTimer invalidate];
+	if ([self.snapshotTimer isValid])
+		[self.snapshotTimer invalidate];
+	self.startTimer = [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(takeSnapshot) userInfo:nil repeats:YES];
+	self.snapshotTimer = [NSTimer scheduledTimerWithTimeInterval:.02 target:self selector:@selector(shouldSnapShot:) userInfo:nil repeats:YES];
+}
+-(void)shouldSnapShot:(id)sender{
+	if(![motionAlertText isHidden]){
+		if ([self isWaiting])
+			[self saveImage:oldImage toURL:[self saveToURL]];
+		if ([self isRecording]){
+			if ([self.stopTimer isValid])
+				[self.stopTimer invalidate];
+			NSTimeInterval interval = [[self endDate] timeIntervalSinceDate:[NSDate date]];
+			self.stopTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(stopRecordingImages) userInfo:nil repeats:NO];
+		}
+	}
 }
 - (void)stopRecordingImages{
-	
+	if ([self.snapshotTimer isValid])
+		[self.snapshotTimer invalidate];
+	if ([self.startTimer isValid])
+		[self.startTimer invalidate];
 }
 -(void)takeSnapshot{
-	[session startRunning];
-	[session stopRunning];
+	[NSThread detachNewThreadSelector:@selector(reallyTakeSnapshot) toTarget:self withObject:nil];
+}
+
+- (void) reallyTakeSnapshot {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	[session performSelectorOnMainThread:@selector(startRunning) withObject:nil waitUntilDone:YES];
+	sleep(1000);
+	[session performSelectorOnMainThread:@selector(stopRunning) withObject:nil waitUntilDone:YES];
+
+	[pool release];
 }
 
 -(IBAction)validateWaitTime:(id)sender{
@@ -252,12 +296,14 @@
 	[self deactivateAllOptions];
 	[camController setWaiting];
 	
-	if (self.waitButton.state)
+	if (self.waitButton.state){
 		self.startTimer = [NSTimer scheduledTimerWithTimeInterval:60*[waitTimeInput intValue] target:self selector:@selector(setMotionDetector) userInfo:nil repeats:NO];
-	else
+		[camController setReady];
+	}
+	else{
 		[self setMotionDetector];
-	
-	[self.recordButton setState:NO];
+		[camController setRecording];
+	}
 }
 -(void)stop{
 	[super stop];
@@ -278,8 +324,10 @@
 -(void)shouldStartRecording:(id)sender{
 	if(![motionAlertText isHidden]){
 		[self scheduleStopDate:[self endDate]];
-		if (self.isWaiting)
+		if ([self isWaiting])
 			[self startRecording];
+		if ([self isRecording])
+			[self scheduleStopDate:[self endDate]];
 	}
 }
 -(void)stopRecording{
