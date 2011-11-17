@@ -307,24 +307,20 @@ typedef enum {
 	{
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"quietSave"]){
 				//First, set up the save to directory
-			NSDateFormatter *formatter = [[NSDateFormatter alloc] init]; 
 			NSString *path = [@"~/Movies/onCue/" stringByExpandingTildeInPath];
 			NSError *err = nil;
 			BOOL directory;
-			if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&directory])
+			if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&directory])			
 				[[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:path isDirectory:YES]  withIntermediateDirectories:YES attributes:nil error:&err];
 			if (err != nil)
 				NSLog(@"Error creating save path directory.");
 			
 				// Now set up the file itself
-			[formatter setDateFormat:[NSDateFormatter dateFormatFromTemplate:@"MMMdyyyyhmma" options:0 locale:[NSLocale currentLocale]]];
-			path = [[[path stringByAppendingString:@"/"] stringByAppendingString:[formatter stringFromDate:[NSDate date]]] stringByAppendingString:@".mov"];
+			path = [[[path stringByAppendingString:@"/"] stringByAppendingString:[dateFormatter stringFromDate:[NSDate date]]] stringByAppendingString:@".mov"];
 			
 			[[NSFileManager defaultManager] moveItemAtURL:outputFileURL 
 													toURL:[NSURL fileURLWithPath:path]
 													error:nil];
-			
-			[formatter release];
 		}
 		else{
 				// SAVE PANEL ATTACHED TO WINDOW

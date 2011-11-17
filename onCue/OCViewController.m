@@ -44,8 +44,11 @@ mainWindow, tabView, drawer;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (!self) 
 		return nil;
-	_recordingImages = NO;
+
 	session = [[QTCaptureSession alloc] init];
+	
+	dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateFormat:@"M-d-yy_h-mm_a"];
 	
 		// Create Outputs
 	movieFileOutput = [[QTCaptureMovieFileOutput alloc] init];
@@ -157,28 +160,23 @@ mainWindow, tabView, drawer;
 -(NSString*)getSaveString{
 	return nil;
 }
--(IBAction)pictureOutputToggled{
-	
-}
+
 - (IBAction)recordButtonPressed:(id)sender{
-		// Record Video
-	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"recordImages"]){
+//		// Record Video
+//	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"recordImages"]){
 		if ([self isRecording] || [self isWaiting])
 			[self stop];
 		else
 			[self start];
-	} 
-		// Record Images
-	else{
-		[self startRecordingImages];
-		
-	}
+//	}
+ 
+//		// Record Images
+//	else{
+//		[self startRecordingImages];
+//		
+//	}
 }
--(void)takeSnapshot{
-	[session startRunning];
-//	[self saveImage:mCurrentImageBuffer toURL:[self getSaveURL]];
-	[session stopRunning];
-}
+
 -(BOOL)scheduleStopDate:(NSDate *)stopDate{
 	if ([self.stopTimer isValid])
 		[self.stopTimer invalidate];
@@ -478,26 +476,16 @@ mainWindow, tabView, drawer;
 	[self setRecording:FALSE];
 	[camController setReady];
 }
-- (void)startRecordingImages{
-	_recordingImages = YES;
-	[drawer close];
-	if ([self isRecording] || [self.startTimer isValid])
-		return;
-	[session stopRunning];
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"runFromMenubar"]){
-		[self launchMenuBar];
-		[self closeMainWindow];
-	}
-	[self deactivateAllOptions];
-	[camController setWaiting];
-}
-- (void)stopRecordingImages{
-	_recordingImages = NO;
-	[camController setReady];
-}
--(BOOL)isRecordingImages{
-	return _recordingImages;
-}
+//- (void)startRecordingImages{
+//
+//}
+//- (void)stopRecordingImages{
+//	_recordingImages = NO;
+//	[camController setReady];
+//}
+//-(BOOL)isRecordingImages{
+//	return _recordingImages;
+//}
 - (BOOL)isRecording
 {
     return ([movieFileOutput outputFileURL] != nil);

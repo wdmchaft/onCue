@@ -26,9 +26,6 @@
 	
 	[number_formatter release];
 	
-	dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setDateFormat:@"M-d-yy_h-mm_a"];
-	
 	_preview = [[OCMotionVideoView alloc] initWithFrame:drawer.contentView.frame andSession:session];
 	[(OCMotionVideoView*)_preview setDelegate:self];
     
@@ -59,8 +56,19 @@
 	delayMinutes = @"2";
 }
 - (void)startRecordingImages{
-	[super startRecordingImages];
+//	_recordingImages = YES;
+	[drawer close];
+	if ([self isRecording] || [self.startTimer isValid])
+		return;
+	[session stopRunning];
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"runFromMenubar"]){
+		[self launchMenuBar];
+		[self closeMainWindow];
+	}
+	[self deactivateAllOptions];
+	
 	if (self.isWaiting){
+		[camController setWaiting];
 		self.startTimer = [NSTimer scheduledTimerWithTimeInterval:[[self endDate] timeIntervalSinceDate:[NSDate date]] target:self selector:@selector(initImageTimers) userInfo:nil repeats:NO];
 	}
 	else{
@@ -81,6 +89,7 @@
 		[self.snapshotTimer invalidate];
 	self.startTimer = [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(takeSnapshot) userInfo:nil repeats:YES];
 	self.snapshotTimer = [NSTimer scheduledTimerWithTimeInterval:.02 target:self selector:@selector(shouldSnapShot:) userInfo:nil repeats:YES];
+	[camController setRecording];
 }
 -(void)shouldSnapShot:(id)sender{
 	if(![motionAlertText isHidden]){
@@ -164,7 +173,10 @@
 	NSError *err = nil;
 	BOOL directory;
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&directory])
-		[[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:path isDirectory:YES]  withIntermediateDirectories:YES attributes:nil error:&err];
+		
+	[[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&err];
+		
+//	[[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:path isDirectory:YES]  withIntermediateDirectories:YES attributes:nil error:&err];
 	if (err != nil)
 		NSLog(@"Error creating save path directory.");
     
@@ -228,8 +240,6 @@
 	NSString *dirpath = @"";
 	NSString *filepath = @"";
 	NSString *suffix = @".mov";
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"recordImages"])
-		suffix = @".png";
 	
 	NSError *err = nil;
 	BOOL directory;
@@ -296,14 +306,10 @@
 	[self deactivateAllOptions];
 	[camController setWaiting];
 	
-	if (self.waitButton.state){
+	if (self.waitButton.state)
 		self.startTimer = [NSTimer scheduledTimerWithTimeInterval:60*[waitTimeInput intValue] target:self selector:@selector(setMotionDetector) userInfo:nil repeats:NO];
-		[camController setReady];
-	}
-	else{
+	else
 		[self setMotionDetector];
-		[camController setRecording];
-	}
 }
 -(void)stop{
 	[super stop];

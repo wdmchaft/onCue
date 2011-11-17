@@ -7,10 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2349B5A6145B411400F92E27 /* MAFilterKernel.cikernel in Resources */ = {isa = PBXBuildFile; fileRef = 2349B5A5145B411400F92E27 /* MAFilterKernel.cikernel */; };
 		23575376144FB9DD00EDAAE6 /* CamController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23575371144FB9DC00EDAAE6 /* CamController.m */; };
 		23575377144FB9DD00EDAAE6 /* OCContinuousVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 23575373144FB9DC00EDAAE6 /* OCContinuousVC.m */; };
 		23575378144FB9DD00EDAAE6 /* OCVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23575375144FB9DD00EDAAE6 /* OCVideoView.m */; };
 		2357537B144FBC8300EDAAE6 /* OCMotionVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2357537A144FBC8300EDAAE6 /* OCMotionVideoView.m */; };
+		23832489145103BF0039BD04 /* icons.icns in Resources */ = {isa = PBXBuildFile; fileRef = 23832488145103BF0039BD04 /* icons.icns */; };
+		239091771450F99400E6B326 /* icon5.png in Resources */ = {isa = PBXBuildFile; fileRef = 239091761450F99400E6B326 /* icon5.png */; };
 		2394322A143E7ECC0093217F /* OCMotionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 23943228143E7ECC0093217F /* OCMotionVC.m */; };
 		2394322B143E7ECC0093217F /* OCMotion.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23943229143E7ECC0093217F /* OCMotion.xib */; };
 		23943230143FE6E90093217F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2394322E143FE6DC0093217F /* Accelerate.framework */; };
@@ -32,9 +35,11 @@
 		23EC960914393BE800823C49 /* menu_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 23EC960414393BE800823C49 /* menu_icon.png */; };
 		23EC960F143A557000823C49 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23EC960D143A556200823C49 /* QTKit.framework */; };
 		23EC9612143BFE4F00823C49 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23EC9610143BFE4100823C49 /* CoreVideo.framework */; };
+		23F26A38145A15810084CCC5 /* MAFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F26A37145A15810084CCC5 /* MAFilter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2349B5A5145B411400F92E27 /* MAFilterKernel.cikernel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MAFilterKernel.cikernel; sourceTree = "<group>"; };
 		23575370144FB9DC00EDAAE6 /* CamController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CamController.h; sourceTree = "<group>"; };
 		23575371144FB9DC00EDAAE6 /* CamController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CamController.m; sourceTree = "<group>"; };
 		23575372144FB9DC00EDAAE6 /* OCContinuousVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCContinuousVC.h; sourceTree = "<group>"; };
@@ -43,6 +48,8 @@
 		23575375144FB9DD00EDAAE6 /* OCVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCVideoView.m; sourceTree = "<group>"; };
 		23575379144FBC8300EDAAE6 /* OCMotionVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMotionVideoView.h; sourceTree = "<group>"; };
 		2357537A144FBC8300EDAAE6 /* OCMotionVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCMotionVideoView.m; sourceTree = "<group>"; };
+		23832488145103BF0039BD04 /* icons.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icons.icns; sourceTree = "<group>"; };
+		239091761450F99400E6B326 /* icon5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon5.png; sourceTree = "<group>"; };
 		23943227143E7ECC0093217F /* OCMotionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMotionVC.h; sourceTree = "<group>"; };
 		23943228143E7ECC0093217F /* OCMotionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCMotionVC.m; sourceTree = "<group>"; };
 		23943229143E7ECC0093217F /* OCMotion.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OCMotion.xib; sourceTree = "<group>"; };
@@ -75,6 +82,8 @@
 		23EC960414393BE800823C49 /* menu_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_icon.png; sourceTree = "<group>"; };
 		23EC960D143A556200823C49 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		23EC9610143BFE4100823C49 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		23F26A36145A15810084CCC5 /* MAFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAFilter.h; sourceTree = "<group>"; };
+		23F26A37145A15810084CCC5 /* MAFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAFilter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +105,8 @@
 		23EC95C8143936BA00823C49 = {
 			isa = PBXGroup;
 			children = (
+				239091761450F99400E6B326 /* icon5.png */,
+				23832488145103BF0039BD04 /* icons.icns */,
 				23EC95DD143936BA00823C49 /* onCue */,
 				23EC95D6143936BA00823C49 /* Frameworks */,
 				23EC95D4143936BA00823C49 /* Products */,
@@ -136,6 +147,9 @@
 		23EC95DD143936BA00823C49 /* onCue */ = {
 			isa = PBXGroup;
 			children = (
+				2349B5A5145B411400F92E27 /* MAFilterKernel.cikernel */,
+				23F26A36145A15810084CCC5 /* MAFilter.h */,
+				23F26A37145A15810084CCC5 /* MAFilter.m */,
 				23575370144FB9DC00EDAAE6 /* CamController.h */,
 				23575371144FB9DC00EDAAE6 /* CamController.m */,
 				23EC95E9143936BA00823C49 /* onCueAppDelegate.h */,
@@ -240,6 +254,9 @@
 				23EC960814393BE800823C49 /* button.png in Resources */,
 				23EC960914393BE800823C49 /* menu_icon.png in Resources */,
 				2394322B143E7ECC0093217F /* OCMotion.xib in Resources */,
+				239091771450F99400E6B326 /* icon5.png in Resources */,
+				23832489145103BF0039BD04 /* icons.icns in Resources */,
+				2349B5A6145B411400F92E27 /* MAFilterKernel.cikernel in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,6 +277,7 @@
 				23575377144FB9DD00EDAAE6 /* OCContinuousVC.m in Sources */,
 				23575378144FB9DD00EDAAE6 /* OCVideoView.m in Sources */,
 				2357537B144FBC8300EDAAE6 /* OCMotionVideoView.m in Sources */,
+				23F26A38145A15810084CCC5 /* MAFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +316,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CODE_SIGN_IDENTITY = "Mac Developer: Jake Van Alstyne (79J82DKK35)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -315,6 +334,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "9BF3F21D-98DF-4E9E-8A72-B4751651746F";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -324,6 +344,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: EggDevil";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -334,6 +355,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PROVISIONING_PROFILE = "47469E4C-E030-4DF5-A6DC-B472E926E4A5";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -342,11 +364,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CODE_SIGN_IDENTITY = "Mac Developer: Jake Van Alstyne (79J82DKK35)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "onCue/onCue-Prefix.pch";
 				INFOPLIST_FILE = "onCue/onCue-Info.plist";
-				ONLY_ACTIVE_ARCH = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "9BF3F21D-98DF-4E9E-8A72-B4751651746F";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -355,11 +381,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: EggDevil";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "onCue/onCue-Prefix.pch";
 				INFOPLIST_FILE = "onCue/onCue-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "47469E4C-E030-4DF5-A6DC-B472E926E4A5";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

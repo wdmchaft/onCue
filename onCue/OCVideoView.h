@@ -15,7 +15,7 @@
 @interface OCVideoView : NSView{
 	QTCaptureVideoPreviewOutput *previewOutput;
 	CIImage *currentImage;
-	OCMotionVC *parentController;
+	OCViewController *_delegate;
 }
 
 @property (retain, readwrite) CIImage *currentImage;

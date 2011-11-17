@@ -29,5 +29,5 @@
 }
 
 - (void)switchViewController:(NSTabView*)tabView item:(NSTabViewItem*)nextItem;
--(IBAction)pictureOutputToggled:(id)sender;
+-(IBAction)restoreMainWindow:(id)sender;
 @end

@@ -62,8 +62,6 @@
 					/* Recording */
     NSURL                       *saveToURL;
 	
-	BOOL _recordingImages;
-	
 	OCVideoView *_preview;
 }
 
@@ -91,7 +89,6 @@
 - (void)restoreMainWindow;
 - (void)closeMainWindow;
 
--(IBAction)pictureOutputToggled;
 - (IBAction)toggleDrawer:(id)sender;
 
 /* Device selection */
@@ -112,11 +109,11 @@
 - (void) setVideoRecordingCompression:(NSString *)compression;
 - (void)startRecording;
 - (void)stopRecording;
-- (void)startRecordingImages;
-- (void)stopRecordingImages;
+//- (void)startRecordingImages;
+//- (void)stopRecordingImages;
 - (void)setRecording:(BOOL)recording;
 - (BOOL)isRecording;
-- (BOOL)isRecordingImages;
+//- (BOOL)isRecordingImages;
 - (BOOL)isWaiting;
 
 -(NSDate *)endDate;

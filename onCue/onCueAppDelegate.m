@@ -26,10 +26,10 @@
 	
 	switch ([myTabView indexOfTabViewItem:[myTabView selectedTabViewItem]]){
 		case 0:
-			currentVC = continuousVC;
+			currentVC = [continuousVC retain];
 			break;
 		case 1:
-			currentVC = motionVC;
+			currentVC = [motionVC retain];
 			break;
 	}
 	
@@ -81,7 +81,7 @@
 	}
 	currentVC = [newController retain];
 }
--(IBAction)pictureOutputToggled:(id)sender{
-	[currentVC pictureOutputToggled];
+-(IBAction)restoreMainWindow:(id)sender{
+	[windowController showWindow:window];
 }
 @end

@@ -27,18 +27,25 @@
 }
 -(void)dealloc{
 	[previewOutput release];
-
+	[_delegate release];
+	
 	[super dealloc];
 }
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-	if (self.currentImage != nil){
-		CGRect extent = [self.currentImage extent];
-		[self.currentImage drawInRect: NSRectFromCGRect(  extent )  fromRect: NSRectFromCGRect(  extent )  operation:NSCompositeCopy fraction:1];
-	}
+//	if ([_delegate.drawer state]){
+		if (self.currentImage != nil){
+			CGRect extent = [self.currentImage extent];
+			[self.currentImage drawInRect: NSRectFromCGRect(  extent )  fromRect: NSRectFromCGRect(  extent )  operation:NSCompositeCopy fraction:1];
+		}
+//	}
 }
-
+-(void)setDelegate:(OCViewController *)delegate{
+	if (_delegate)
+		[_delegate release];
+	_delegate = [delegate retain];
+}
 -(void)captureOutput:(QTCaptureOutput *)captureOutput 
 		didOutputVideoFrame:(CVImageBufferRef)videoFrame 
 		withSampleBuffer:(QTSampleBuffer *)sampleBuffer 

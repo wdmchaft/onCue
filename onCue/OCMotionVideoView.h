@@ -16,7 +16,7 @@
 @class QTCaptureSession;
 
 @interface OCMotionVideoView : OCVideoView{
-	OCMotionVC *viewDelegate;
+//	OCMotionVC *_delegate;
 	
 	CIImage *oldImage;
 	CIFilter *mafilter;

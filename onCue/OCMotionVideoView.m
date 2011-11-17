@@ -8,6 +8,7 @@
 
 #import <QTKit/QTKit.h>
 #import "OCMotionVideoView.h"
+#import "MAFilter.h"
 
 @implementation OCMotionVideoView
 - (id)initWithFrame:(NSRect)frame andSession:(QTCaptureSession*)session
@@ -16,8 +17,8 @@
     if (!self) 
         return nil;
 	[CIPlugIn loadAllPlugIns];
-	
-	mafilter = [[CIFilter filterWithName:@"MAFilter"] retain]; //No defaults
+
+	mafilter = [[MAFilter alloc] init]; //No defaults
 	
 	cropFilter = [[CIFilter filterWithName:@"CICrop"] retain];
 	[cropFilter setDefaults];
@@ -27,13 +28,12 @@
     return self;
 }
 -(void)dealloc{
-	[viewDelegate release];
 	[super dealloc];
 }
 -(void)setDelegate:(OCMotionVC *)delegate{
-	if (viewDelegate)
-		[viewDelegate release];
-	viewDelegate = [delegate retain];
+	if (_delegate)
+		[_delegate release];
+	_delegate = [delegate retain];
 }
 -(void)captureOutput:(QTCaptureOutput *)captureOutput 
  didOutputVideoFrame:(CVImageBufferRef)videoFrame 
@@ -56,11 +56,12 @@
 	[cropFilter setValue:[self vectorFromExtent:extent]  forKey:@"inputRectangle"];
 	
 	NSBitmapImageRep *rep = [[NSBitmapImageRep alloc]initWithCIImage:[cropFilter valueForKey:@"outputImage"]];
+	OCMotionVC*del=(OCMotionVC*)_delegate;
 	if([self motionDetected:rep]){
-		[viewDelegate.motionAlertText setHidden:NO];
+		[del.motionAlertText setHidden:NO];
 	}
 	else
-		[viewDelegate.motionAlertText setHidden:YES];
+		[del.motionAlertText setHidden:YES];
 	[rep release];
 	
 	[cropFilter setValue:[mafilter valueForKey:@"outputImage"] forKey:@"inputImage"];
@@ -90,9 +91,10 @@
 	int i;
 	for (i = 128; i < 256; i++) // Ignore dark values
 		_sum += _histogramR[i];
-	viewDelegate.motionLevelValue = _sum;
+	OCMotionVC*del=(OCMotionVC*)_delegate;
+	del.motionLevelValue = _sum;
 	
-	double val = [viewDelegate.sensSlider maxValue] - [viewDelegate.sensSlider intValue];
+	double val = [del.sensSlider maxValue] - [del.sensSlider intValue];
 	if (_sum >= val)
 		return TRUE;
 	return FALSE;
@@ -100,4 +102,5 @@
 - (CIVector *)vectorFromExtent:(CGRect)extent{
 	return [CIVector vectorWithX:extent.origin.x Y:extent.origin.y Z:extent.size.width	W:extent.size.height];
 }
+	// called when setting up for fragment program and also calls fragment program
 @end
