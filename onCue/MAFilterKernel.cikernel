@@ -1,0 +1,16 @@
+kernel vec4 MAFilterKernel(sampler inputImage1, sampler inputImage2)
+{
+vec4 image1Val = sample(inputImage1, samplerCoord(inputImage1));
+vec4 image2Val = sample(inputImage2, samplerCoord(inputImage2));
+vec4 delta = abs(image1Val - image2Val);
+
+float THRESHOLD = 0.01;
+//float dotP = dot(image1Val, image2Val) / 3.0;
+float deltaDotP = dot(delta,delta) / 3.0;
+
+
+delta = deltaDotP > THRESHOLD ? vec4(1.0,0.0,0.0,1.0) : image2Val;
+
+delta.a = 1.0;
+return premultiply(delta);
+}
