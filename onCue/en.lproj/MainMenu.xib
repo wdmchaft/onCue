@@ -12,16 +12,18 @@
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<string>NSView</string>
-			<string>NSMenu</string>
-			<string>NSWindowTemplate</string>
 			<string>NSMenuItem</string>
-			<string>NSTabView</string>
-			<string>NSTabViewItem</string>
+			<string>NSMenu</string>
 			<string>NSButtonCell</string>
 			<string>NSButton</string>
-			<string>NSUserDefaultsController</string>
+			<string>NSTextFieldCell</string>
+			<string>NSTabView</string>
 			<string>NSCustomObject</string>
+			<string>NSTabViewItem</string>
+			<string>NSView</string>
+			<string>NSWindowTemplate</string>
+			<string>NSTextField</string>
+			<string>NSUserDefaultsController</string>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -345,7 +347,7 @@
 			<object class="NSWindowTemplate" id="825439141">
 				<int key="NSWindowStyleMask">275</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{798, 795}, {336, 88}}</string>
+				<string key="NSWindowRect">{{798, 795}, {336, 135}}</string>
 				<int key="NSWTFlags">-461896704</int>
 				<string key="NSWindowTitle">Preferences</string>
 				<string key="NSWindowClass">NSPanel</string>
@@ -359,7 +361,7 @@
 						<object class="NSButton" id="449318151">
 							<reference key="NSNextResponder" ref="96572530"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{18, 52}, {232, 18}}</string>
+							<string key="NSFrame">{{18, 99}, {232, 18}}</string>
 							<reference key="NSSuperview" ref="96572530"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="661311056"/>
@@ -390,10 +392,10 @@
 						<object class="NSButton" id="661311056">
 							<reference key="NSNextResponder" ref="96572530"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{18, 18}, {157, 32}}</string>
+							<string key="NSFrame">{{18, 65}, {157, 32}}</string>
 							<reference key="NSSuperview" ref="96572530"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="355058845"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:161</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="899229046">
@@ -416,7 +418,7 @@
 						<object class="NSButton" id="355058845">
 							<reference key="NSNextResponder" ref="96572530"/>
 							<int key="NSvFlags">-2147483380</int>
-							<string key="NSFrame">{{18, -33}, {300, 18}}</string>
+							<string key="NSFrame">{{-2, -299}, {300, 18}}</string>
 							<reference key="NSSuperview" ref="96572530"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView"/>
@@ -439,8 +441,40 @@
 								<int key="NSPeriodicInterval">25</int>
 							</object>
 						</object>
+						<object class="NSTextField" id="660240105">
+							<reference key="NSNextResponder" ref="96572530"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{33, 20}, {271, 39}}</string>
+							<reference key="NSSuperview" ref="96572530"/>
+							<reference key="NSWindow"/>
+							<string key="NSReuseIdentifierKey">_NS:360</string>
+							<string key="NSAntiCompressionPriority">{250, 750}</string>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSTextFieldCell" key="NSCell" id="152322686">
+								<int key="NSCellFlags">67239424</int>
+								<int key="NSCellFlags2">272629760</int>
+								<string key="NSContents">Check this box if you'd like the app to minimize to the menubar when the Big Button in the center is pressed (thus scheduling/starting a recording).</string>
+								<object class="NSFont" key="NSSupport">
+									<string key="NSName">LucidaGrande</string>
+									<double key="NSSize">10</double>
+									<int key="NSfFlags">16</int>
+								</object>
+								<string key="NSCellIdentifier">_NS:360</string>
+								<reference key="NSControlView" ref="660240105"/>
+								<reference key="NSBackgroundColor" ref="1027173153"/>
+								<object class="NSColor" key="NSTextColor">
+									<int key="NSColorSpace">6</int>
+									<string key="NSCatalogName">System</string>
+									<string key="NSColorName">controlTextColor</string>
+									<object class="NSColor" key="NSColor">
+										<int key="NSColorSpace">3</int>
+										<bytes key="NSWhite">MAA</bytes>
+									</object>
+								</object>
+							</object>
+						</object>
 					</object>
-					<string key="NSFrameSize">{336, 88}</string>
+					<string key="NSFrameSize">{336, 135}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="449318151"/>
@@ -839,8 +873,9 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="449318151"/>
-							<reference ref="661311056"/>
 							<reference ref="355058845"/>
+							<reference ref="661311056"/>
+							<reference ref="660240105"/>
 						</object>
 						<reference key="parent" ref="825439141"/>
 					</object>
@@ -976,6 +1011,20 @@
 						<reference key="object" ref="1072660028"/>
 						<reference key="parent" ref="1013374837"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">634</int>
+						<reference key="object" ref="660240105"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="152322686"/>
+						</object>
+						<reference key="parent" ref="96572530"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">635</int>
+						<reference key="object" ref="152322686"/>
+						<reference key="parent" ref="660240105"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1030,6 +1079,8 @@
 					<string>622.IBPluginDependency</string>
 					<string>623.IBPluginDependency</string>
 					<string>630.IBPluginDependency</string>
+					<string>634.IBPluginDependency</string>
+					<string>635.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1088,6 +1139,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -1102,7 +1155,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">631</int>
+			<int key="maxID">635</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1129,6 +1182,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">onCueAppDelegate</string>
 					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">restoreMainWindow:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">restoreMainWindow:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">restoreMainWindow:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">

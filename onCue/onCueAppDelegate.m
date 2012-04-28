@@ -39,6 +39,7 @@
 -(void)dealloc{
 	[continuousVC release];
 	[motionVC release];
+    [super dealloc];
 }
 
 - (BOOL)tabView:(NSTabView *)tabView shouldSelectTabViewItem:(NSTabViewItem *)tabViewItem{

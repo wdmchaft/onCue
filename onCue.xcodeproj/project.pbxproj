@@ -39,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2306BC001489999D00141133 /* onCue.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = onCue.entitlements; sourceTree = "<group>"; };
 		2349B5A5145B411400F92E27 /* MAFilterKernel.cikernel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MAFilterKernel.cikernel; sourceTree = "<group>"; };
 		23575370144FB9DC00EDAAE6 /* CamController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CamController.h; sourceTree = "<group>"; };
 		23575371144FB9DC00EDAAE6 /* CamController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CamController.m; sourceTree = "<group>"; };
@@ -147,6 +148,7 @@
 		23EC95DD143936BA00823C49 /* onCue */ = {
 			isa = PBXGroup;
 			children = (
+				2306BC001489999D00141133 /* onCue.entitlements */,
 				2349B5A5145B411400F92E27 /* MAFilterKernel.cikernel */,
 				23F26A36145A15810084CCC5 /* MAFilter.h */,
 				23F26A37145A15810084CCC5 /* MAFilter.m */,
@@ -219,7 +221,7 @@
 		23EC95CA143936BA00823C49 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = EggDevil;
 			};
 			buildConfigurationList = 23EC95CD143936BA00823C49 /* Build configuration list for PBXProject "onCue" */;
@@ -364,14 +366,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				CODE_SIGN_IDENTITY = "Mac Developer: Jake Van Alstyne (79J82DKK35)";
+				CODE_SIGN_IDENTITY = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "onCue/onCue-Prefix.pch";
 				INFOPLIST_FILE = "onCue/onCue-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9BF3F21D-98DF-4E9E-8A72-B4751651746F";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
@@ -381,14 +382,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: EggDevil";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "onCue/onCue-Prefix.pch";
 				INFOPLIST_FILE = "onCue/onCue-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "47469E4C-E030-4DF5-A6DC-B472E926E4A5";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};

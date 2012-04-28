@@ -215,7 +215,7 @@
 {
 	NSLog(@"Recorded:\n%llu Bytes\n%@ Duration\n%@ ", [captureOutput recordedFileSize], QTStringFromTime([captureOutput recordedDuration]),outputFileURL);
 	
-	if (error && ![[[error userInfo] objectForKey:QTErrorRecordingSuccessfullyFinishedKey] boolValue]) {
+	if (error && ![[[error userInfo] objectForKey:QTErrorRecordingSuccesfullyFinishedKey] boolValue]) {
 		[[NSAlert alertWithError:error] beginSheetModalForWindow:self.mainWindow 
                                                    modalDelegate:self 
                                                   didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) 
@@ -247,7 +247,10 @@
 	{
 			//First, set up the save to directory
 		if (![[NSFileManager defaultManager] fileExistsAtPath:rootpath isDirectory:&directory])
-			[[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:rootpath isDirectory:YES]  withIntermediateDirectories:YES attributes:nil error:&err];
+			if ([[NSFileManager defaultManager] respondsToSelector:@selector(createDirectoryAtURL:withIntermediateDirectories:attributes:error:)])
+				[[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:rootpath isDirectory:YES]  withIntermediateDirectories:YES attributes:nil error:&err];
+			else	
+				[[NSFileManager defaultManager] createDirectoryAtPath:rootpath attributes:nil];
 		if (err != nil)
 			NSLog(@"Error creating save path directory.");
 		
@@ -262,7 +265,10 @@
 	
 	if ([[NSFileManager defaultManager] fileExistsAtPath:filepath isDirectory:&directory] || [[NSFileManager defaultManager] fileExistsAtPath:dirpath isDirectory:&directory]){
 		if (![[NSFileManager defaultManager] fileExistsAtPath:dirpath isDirectory:&directory]){
-			[[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:dirpath isDirectory:YES]  withIntermediateDirectories:YES attributes:nil error:&err];
+			if ([[NSFileManager defaultManager] respondsToSelector:@selector(createDirectoryAtURL:withIntermediateDirectories:attributes:error:)])
+				[[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:dirpath isDirectory:YES]  withIntermediateDirectories:YES attributes:nil error:&err];
+			else	
+				[[NSFileManager defaultManager] createDirectoryAtPath:dirpath attributes:nil];
 			if (err != nil)
 				[[NSAlert alertWithError:err] beginSheetModalForWindow:[self.view window] 
 														 modalDelegate:self 

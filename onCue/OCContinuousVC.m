@@ -295,7 +295,7 @@ typedef enum {
 {
 	NSLog(@"Recorded:\n%llu Bytes\n%@ Duration\n%@ ", [captureOutput recordedFileSize], QTStringFromTime([captureOutput recordedDuration]),outputFileURL);
 	
-	if (error && ![[[error userInfo] objectForKey:QTErrorRecordingSuccessfullyFinishedKey] boolValue]) {
+	if (error && ![[[error userInfo] objectForKey:QTErrorRecordingSuccesfullyFinishedKey] boolValue]) {
 		[[NSAlert alertWithError:error] beginSheetModalForWindow:self.mainWindow 
                                                    modalDelegate:self 
                                                   didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) 
@@ -310,8 +310,12 @@ typedef enum {
 			NSString *path = [@"~/Movies/onCue/" stringByExpandingTildeInPath];
 			NSError *err = nil;
 			BOOL directory;
-			if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&directory])			
-				[[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:path isDirectory:YES]  withIntermediateDirectories:YES attributes:nil error:&err];
+			if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&directory])	
+				if ([[NSFileManager defaultManager] respondsToSelector:@selector(createDirectoryAtURL:withIntermediateDirectories:attributes:error:)])
+					[[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:path isDirectory:YES]  withIntermediateDirectories:YES attributes:nil error:&err];
+				else	
+					[[NSFileManager defaultManager] createDirectoryAtPath:path attributes:nil];
+			
 			if (err != nil)
 				NSLog(@"Error creating save path directory.");
 			
@@ -385,7 +389,10 @@ typedef enum {
 			NSError *err = nil;
 			BOOL directory;
 			if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&directory])
-				[[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:path isDirectory:YES]  withIntermediateDirectories:YES attributes:nil error:&err];
+				if ([[NSFileManager defaultManager] respondsToSelector:@selector(createDirectoryAtURL:withIntermediateDirectories:attributes:error:)])
+					[[NSFileManager defaultManager] createDirectoryAtURL:[NSURL fileURLWithPath:path isDirectory:YES]  withIntermediateDirectories:YES attributes:nil error:&err];
+				else	
+					[[NSFileManager defaultManager] createDirectoryAtPath:path attributes:nil];
 			if (err != nil)
 				NSLog(@"Error creating save path directory.");
 			
