@@ -18,6 +18,7 @@
 		2394322B143E7ECC0093217F /* OCMotion.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23943229143E7ECC0093217F /* OCMotion.xib */; };
 		23943230143FE6E90093217F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2394322E143FE6DC0093217F /* Accelerate.framework */; };
 		23943232143FE7410093217F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23943231143FE7400093217F /* QuartzCore.framework */; };
+		23B2BA73154B77E400C25772 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 23B2BA72154B77E400C25772 /* LICENSE */; };
 		23EC95D8143936BA00823C49 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23EC95D7143936BA00823C49 /* Cocoa.framework */; };
 		23EC95E2143936BA00823C49 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23EC95E0143936BA00823C49 /* InfoPlist.strings */; };
 		23EC95E4143936BA00823C49 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EC95E3143936BA00823C49 /* main.m */; };
@@ -56,6 +57,7 @@
 		23943229143E7ECC0093217F /* OCMotion.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OCMotion.xib; sourceTree = "<group>"; };
 		2394322E143FE6DC0093217F /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		23943231143FE7400093217F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		23B2BA72154B77E400C25772 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		23EC95D3143936BA00823C49 /* onCue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = onCue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23EC95D7143936BA00823C49 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		23EC95DA143936BA00823C49 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -179,6 +181,7 @@
 				23EC960214393BE800823C49 /* waiting.png */,
 				23EC960314393BE800823C49 /* button.png */,
 				23EC960414393BE800823C49 /* menu_icon.png */,
+				23B2BA72154B77E400C25772 /* LICENSE */,
 			);
 			path = onCue;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 				239091771450F99400E6B326 /* icon5.png in Resources */,
 				23832489145103BF0039BD04 /* icons.icns in Resources */,
 				2349B5A6145B411400F92E27 /* MAFilterKernel.cikernel in Resources */,
+				23B2BA73154B77E400C25772 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
